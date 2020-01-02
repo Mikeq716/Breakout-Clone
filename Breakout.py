@@ -18,7 +18,8 @@ def main():
     #Main game loop
     Run = True
     while Run:
-        delta = Clock.tick()
+        delta = Clock.tick_busy_loop()
+        print(delta)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -26,8 +27,8 @@ def main():
 
         SCREEN.fill((0, 0, 0))
 
-        ball.update(delta, paddle)
-        paddle.update(delta)
+        ball.update()
+        paddle.update()
 
         pygame.display.update()
 
