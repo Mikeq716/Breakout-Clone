@@ -3,6 +3,7 @@ import os
 from config import *
 from paddle import Paddle
 from ball import Ball
+from brick import Brick
 
 
 def main():
@@ -19,7 +20,6 @@ def main():
     Run = True
     while Run:
         delta = Clock.tick_busy_loop()
-        print(delta)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -27,8 +27,8 @@ def main():
 
         SCREEN.fill((0, 0, 0))
 
-        ball.update()
-        paddle.update()
+        paddle.update(delta, ball)
+        ball.update(delta)
 
         pygame.display.update()
 
