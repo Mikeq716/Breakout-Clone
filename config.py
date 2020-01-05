@@ -20,10 +20,10 @@ SCREEN_HEIGHT = 800
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 PADDLE_Y = 750
-PADDLE_SPEED = 0.5
+PADDLE_SPEED = 1
 PADDLE_WIDTH = paddle_img.get_width()
 
-BALL_SPEED = 0.75
+BALL_SPEED = 1
 BALL_WIDTH = ball_img.get_width()
 BALL_HEIGHT = ball_img.get_height()
 
