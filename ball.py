@@ -21,7 +21,7 @@ class Ball:
             self.direction.y *= -1
         if self.position.y + self.direction.y * BALL_SPEED * delta >= 600:
             self.direction.y *= -1
-        
+
         self.position += self.direction * BALL_SPEED * delta
 
 

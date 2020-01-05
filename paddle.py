@@ -28,6 +28,17 @@ class Paddle:
                 self.x += PADDLE_SPEED * delta
 
     def check_collision(self, ball, delta):
-        if ball.position.y + BALL_HEIGHT + ball.direction.y * BALL_SPEED * delta >= PADDLE_Y:
-            if ball.position.x + BALL_WIDTH + ball.direction.x * BALL_SPEED * delta > self.x and ball.position.x + ball.direction.x * BALL_SPEED * delta < self.x + PADDLE_WIDTH:
-                ball.direction.y *= -1
+        check_pos_x = ball.position.x + (BALL_WIDTH / 2) + ball.direction.x * BALL_SPEED * delta
+        check_pos_y = ball.position.y + BALL_HEIGHT + ball.direction.y * BALL_SPEED * delta
+        paddle_split_pos = self.x + (PADDLE_WIDTH / 2) + PADDLE_SPEED * delta
+        y_vel = ball.direction.y
+        if check_pos_y >= PADDLE_Y:
+            if check_pos_x >= self.x and check_pos_x <= self.x + PADDLE_WIDTH:
+                if check_pos_x < paddle_split_pos:
+                    ball_dist = paddle_split_pos - check_pos_x
+                    x_vel = (ball_dist / (PADDLE_WIDTH / 2)) * -1
+                    ball.direction = pygame.math.Vector2(x_vel, y_vel * -1).normalize()
+                if check_pos_x > paddle_split_pos:
+                    ball_dist = check_pos_x - paddle_split_pos
+                    x_vel = ball_dist / (PADDLE_WIDTH / 2)
+                    ball.direction = pygame.math.Vector2(x_vel, y_vel * -1).normalize()
