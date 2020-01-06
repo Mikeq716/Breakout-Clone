@@ -31,9 +31,3 @@ class Brick:
             if check_x <= self.x + BRICK_WIDTH and check_x >= self.x + BRICK_WIDTH - (BALL_SPEED * delta) and ball.direction.x < 0:
                 self.hit = True
                 ball.direction.x *= -1
-
-    def update_list(brick_list, ball, delta):
-        for obj in brick_list:
-            obj.update(ball, delta)
-            if obj.hit == True:
-                brick_list.remove(obj)

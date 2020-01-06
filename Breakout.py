@@ -8,15 +8,13 @@ from game import Game
 
 
 def main():
-    #Initiate and set up pygame
-    pygame.init()
-    pygame.display.set_caption("Breakout")
-    pygame.mouse.set_visible(0)
-
     #Create game objects
+    game = Game()
     paddle = Paddle()
     ball = Ball(paddle)
-    game = Game()
+    
+    #Initiate pygame
+    game.game_init()
 
     #Main game loop
     game.game_loop(paddle, ball)

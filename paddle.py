@@ -18,7 +18,7 @@ class Paddle:
         self.x += paddle_move[0]
         if self.x < 0:
             self.x = 0
-        elif self.x >= SCREEN_WIDTH - PADDLE_WIDTH:
+        elif self.x >= SCREEN_WIDTH - PADDLE_WIDTH :
             self.x = SCREEN_WIDTH - PADDLE_WIDTH
 
     def check_collision(self, ball, delta):
