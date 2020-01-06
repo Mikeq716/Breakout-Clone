@@ -15,7 +15,7 @@ class Paddle:
 
     def move(self):
         paddle_move = pygame.mouse.get_rel()
-        self.x += paddle_move[0]
+        self.x += paddle_move[0] * 0.5
         if self.x < 0:
             self.x = 0
         elif self.x >= SCREEN_WIDTH - PADDLE_WIDTH :

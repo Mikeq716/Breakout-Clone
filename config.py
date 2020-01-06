@@ -24,7 +24,7 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 PADDLE_Y = 550
 PADDLE_WIDTH = paddle_img.get_width()
 
-BALL_SPEED = 0.625
+BALL_SPEED = 0.5
 BALL_WIDTH = ball_img.get_width()
 BALL_HEIGHT = ball_img.get_height()
 

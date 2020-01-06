@@ -10,13 +10,14 @@ class Game:
         pygame.init()
         pygame.display.set_caption("Breakout")
         pygame.mouse.set_visible(0)
+        pygame.event.set_grab(True)
 
     def game_loop(self, paddle, ball):
         Clock = pygame.time.Clock()
         Rows = []
-        ball_active = True
+        ball_active = False
 
-        GameHelper.load_level(20, Rows)
+        GameHelper.load_level(50, Rows)
         
         Run = True
         while Run:
@@ -27,9 +28,13 @@ class Game:
                     Run = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        ball_active = False
+                        ball_active = True
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        exit()
 
-            GameHelper.update(Rows, ball, delta, paddle)
+            ball_active = GameHelper.ball_active(ball, paddle, ball_active, delta)
+            GameHelper.update(Rows, ball, delta, paddle, ball_active)
 
 
 class GameHelper:
@@ -58,7 +63,16 @@ class GameHelper:
                 if brick.hit == True:
                     row.remove(brick)
 
-    def update(rows, ball, delta, paddle):
+    def ball_active(ball, paddle, ball_active, delta):
+        if ball_active == False:
+            ball.position.x = paddle.x + PADDLE_WIDTH / 2 - BALL_WIDTH / 2
+            ball.position.y = PADDLE_Y - BALL_HEIGHT - 1
+        else:
+            if ball.position.y > PADDLE_Y - BALL_HEIGHT + (BALL_SPEED * delta):
+                ball_active = False
+        return ball_active
+
+    def update(rows, ball, delta, paddle, ball_active):
         SCREEN.fill((0, 0, 0))
         paddle.update(delta, ball)
         ball.update(delta, paddle)
