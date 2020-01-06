@@ -8,14 +8,10 @@ from brick import Brick
 class Game:
     def game_loop(self, paddle, ball):
         Clock = pygame.time.Clock()
-        red_row = self.create_row(100, brick_red_img)
-        yellow_row = self.create_row(122, brick_yellow_img)
-        pink_row = self.create_row(144, brick_pink_img)
-        green_row = self.create_row(166, brick_green_img)
-        purple_row = self.create_row(188, brick_purple_img)
-        blue_row = self.create_row(210, brick_blue_img)
-        orange_row = self.create_row(232, brick_orange_img)
-
+        fresh_ball = True
+        Rows = []
+        self.load_level(20, Rows)
+        
         Run = True
         while Run:
             delta = Clock.tick()
@@ -23,32 +19,44 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     Run = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        fresh_ball = False
 
             SCREEN.fill((0, 0, 0))
 
             paddle.update(delta, ball)
-            ball.update(delta)
-            
-            self.update_brick_list(red_row, ball, delta)
-            self.update_brick_list(yellow_row, ball, delta)
-            self.update_brick_list(pink_row, ball, delta)
-            self.update_brick_list(green_row, ball, delta)
-            self.update_brick_list(purple_row, ball, delta)
-            self.update_brick_list(blue_row, ball, delta)
-            self.update_brick_list(orange_row, ball, delta)
+            ball.update(delta, paddle, fresh_ball)
 
+            for row in Rows:
+                self.update_brick_list(row, ball, delta)
+            
+            if ball.position.y + ball.direction.y * BALL_SPEED * delta >= SCREEN_HEIGHT:
+                fresh_ball = True
+            
             pygame.display.update()
 
-    def create_row(self, y, img):
-        new_row = []
-        x = 54
-        for i in range(16):
-            new_row.append(Brick(x, y, img))
-            x += 54
-        return new_row
+    def load_level(self, y, Rows):
+        row = []
+        with open(os.path.join('levels', 'test_level.txt')) as level:
+            lines = level.readlines()
+        for obj in lines:
+            x = 21
+            new_row = []
+            row = obj.join('')
+            row.strip()
+            row = obj.split(',')
+            for img in row:
+                new_row.append(Brick(x, y, IMAGES[int(img)]))
+                x += 54
+            y += 22
+            Rows.append(new_row)
+
 
     def update_brick_list(self, new_list, ball, delta):
         for obj in new_list:
             obj.update(ball, delta)
             if obj.hit == True:
                 new_list.remove(obj)
+
+    

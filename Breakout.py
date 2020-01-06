@@ -11,6 +11,7 @@ def main():
     #Initiate and set up pygame
     pygame.init()
     pygame.display.set_caption("Breakout")
+    pygame.mouse.set_visible(0)
 
     #Create game objects
     paddle = Paddle()
