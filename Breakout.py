@@ -17,13 +17,13 @@ def main():
     ball = Ball(paddle)
     red_row, yellow_row, blue_row, green_row, purple_row, pink_row, orange_row = [], [], [], [], [], [], []
 
-    Brick.create_row(red_row, 10, brick_red_img)
-    Brick.create_row(yellow_row, 32, brick_yellow_img)
-    Brick.create_row(blue_row, 54, brick_blue_img)
-    Brick.create_row(green_row, 76, brick_green_img)
-    Brick.create_row(purple_row, 98, brick_purple_img)
-    Brick.create_row(pink_row, 120, brick_pink_img)
-    Brick.create_row(orange_row, 142, brick_orange_img)
+    Brick.create_row(red_row, 50, brick_red_img)
+    Brick.create_row(yellow_row, 72, brick_yellow_img)
+    Brick.create_row(blue_row, 94, brick_blue_img)
+    Brick.create_row(green_row, 116, brick_green_img)
+    Brick.create_row(purple_row, 138, brick_purple_img)
+    Brick.create_row(pink_row, 160, brick_pink_img)
+    Brick.create_row(orange_row, 182, brick_orange_img)
 
     #Main game loop
     Run = True
@@ -36,6 +36,9 @@ def main():
 
         SCREEN.fill((0, 0, 0))
 
+        paddle.update(delta, ball)
+        ball.update(delta)
+
         Brick.update_list(red_row, ball, delta)
         Brick.update_list(yellow_row, ball, delta)
         Brick.update_list(blue_row, ball, delta)
@@ -43,9 +46,6 @@ def main():
         Brick.update_list(purple_row, ball, delta)
         Brick.update_list(pink_row, ball, delta)
         Brick.update_list(orange_row, ball, delta)
-
-        paddle.update(delta, ball)
-        ball.update(delta)
 
         pygame.display.update()
 

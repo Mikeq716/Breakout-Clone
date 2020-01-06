@@ -16,14 +16,14 @@ brick_red_img = pygame.image.load(os.path.join('images/', 'brick_red.png'))
 brick_yellow_img = pygame.image.load(os.path.join('images/', 'brick_yellow.png'))
 
 SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 800
+SCREEN_HEIGHT = 600
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-PADDLE_Y = 750
+PADDLE_Y = 550
 PADDLE_SPEED = 1
 PADDLE_WIDTH = paddle_img.get_width()
 
-BALL_SPEED = 1
+BALL_SPEED = 0.75
 BALL_WIDTH = ball_img.get_width()
 BALL_HEIGHT = ball_img.get_height()
 

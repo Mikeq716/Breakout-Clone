@@ -13,11 +13,37 @@ class Brick:
         SCREEN.blit(self.img, [self.x, self.y])
 
     def check_collision(self, ball, delta):
-        check_x_pos = ball.position.x + (BALL_WIDTH / 2) + ball.direction.x * BALL_SPEED * delta
-        check_y_pos = ball.position.y + (BALL_HEIGHT / 2) + ball.direction.y * BALL_SPEED * delta
-        if check_x_pos >= self.x and check_x_pos <= self.x + BRICK_WIDTH and check_y_pos >= self.y and check_y_pos <= self.y + BRICK_HEIGHT:
-            if check_y_pos + BALL_HEIGHT / 2 < self.y + BRICK_HEIGHT and ball.direction.y < 0:
+        check_x_pos = ball.position.x
+        check_y_pos = ball.position.y
+        
+        if check_x_pos > self.x or check_x_pos < self.x + BRICK_WIDTH or check_y_pos > self.y or check_y_pos < self.y + BRICK_HEIGHT:
+            if check_x_pos > self.x and check_x_pos < self.x + BRICK_WIDTH and check_y_pos < self.y + BRICK_HEIGHT and ball.direction.y < 0:
+                self.hit = True
+                ball.direction.y *= -1
+            elif check_x_pos > self.x and check_x_pos < self.x + BRICK_WIDTH and check_y_pos > self.y and check_y_pos < self.y + BRICK_HEIGHT and ball.direction.y > 0:
+                self.hit = True
+                ball.direction.y *= -1
+            elif check_y_pos > self.y and check_y_pos < self.y + BRICK_HEIGHT and check_x_pos > self.x and check_x_pos < self.x + 5 and ball.direction.x > 0:
+                self.hit = True
+                ball.direction.x *= -1
+            elif check_y_pos > self.y and check_y_pos < self.y + BRICK_HEIGHT and check_x_pos < self.x + BRICK_WIDTH and check_x_pos > self.x + BRICK_WIDTH - 5 and ball.direction.x < 0:
+                self.hit = True
+                ball.direction.x *= -1 
+            elif check_x_pos > self.x and check_x_pos < self.x + 5 and check_y_pos < self.y + BRICK_HEIGHT and check_y_pos > self.y + BRICK_HEIGHT - 5 and ball.direction.x > 0 and ball.direction.y < 0:
+                self.hit = True
+                ball.direction.y *= -1
+            elif check_x_pos < self.x + BRICK_WIDTH - 5 and check_y_pos > self.y + BRICK_HEIGHT and check_y_pos < self.y + BRICK_HEIGHT - 5 and ball.direction.x < 0 and ball.direction.y < 0:
+                self.hit = True
+                ball.direction.y *= -1
+            elif check_x_pos < self.x + BRICK_WIDTH and check_x_pos > self.x + BRICK_WIDTH - 5 and check_y_pos > self.y and check_y_pos < self.y + 5 and ball.direction.x < 0 and ball.direction.y > 0:
+                self.hit = True
+                ball.direction.y *= -1
+            elif check_x_pos > self.x and check_x_pos < self.x + 5 and check_y_pos > self.y and check_y_pos < self.y + 5 and ball.direction.x > 0 and ball.direction.y > 0:
+                self.hit = True
+                ball.direction.y *= -1
                 
+
+
                 
     def create_row(list, y, image):
         x = BRICK_WIDTH
