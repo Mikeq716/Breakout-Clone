@@ -8,7 +8,7 @@ import pygame
 paddle_img = pygame.image.load(os.path.join('images/', 'paddle.png'))
 ball_img = pygame.image.load(os.path.join('images/', 'ball.png'))
 brick_blue_img = pygame.image.load(os.path.join('images/', 'brick_blue.png'))
-brick_green_img = pygame.image.load(os.path.join('images/', 'brick_blue.png'))
+brick_green_img = pygame.image.load(os.path.join('images/', 'brick_green.png'))
 brick_orange_img = pygame.image.load(os.path.join('images/', 'brick_orange.png'))
 brick_pink_img = pygame.image.load(os.path.join('images/', 'brick_pink.png'))
 brick_purple_img = pygame.image.load(os.path.join('images/', 'brick_purple.png'))

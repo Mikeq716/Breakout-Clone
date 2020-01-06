@@ -7,7 +7,7 @@ class Ball:
     def __init__(self, paddle):
         self.start = False
         self.position = pygame.math.Vector2(paddle.x + PADDLE_WIDTH/2 + BALL_WIDTH / 2)
-        self.direction = pygame.math.Vector2(0, -1).normalize()
+        self.direction = pygame.math.Vector2(0, 1).normalize()
 
     def update(self, delta):
         self.move(delta)
