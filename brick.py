@@ -9,10 +9,10 @@ class Brick:
         self.hit = False
 
     def update(self, ball, delta):
-        self.check_collision(ball, delta)
+        self._check_collision(ball, delta)
         SCREEN.blit(self.img, [self.x, self.y])
 
-    def check_collision(self, ball, delta):
+    def _check_collision(self, ball, delta):
         check_x = ball.position.x
         check_y = ball.position.y
         if check_x >= self.x and check_x <= self.x + BRICK_WIDTH: 

@@ -1,11 +1,8 @@
 import pygame
-import os
 from config import *
+from game import Game
 from paddle import Paddle
 from ball import Ball
-from brick import Brick
-from game import Game
-
 
 def main():
     #Create game objects

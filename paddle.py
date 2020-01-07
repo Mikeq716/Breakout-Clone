@@ -9,11 +9,11 @@ class Paddle:
         self.y = PADDLE_Y
 
     def update(self, delta, ball):
-        self.move()
-        self.check_collision(ball, delta)
+        self.__move()
+        self.__check_collision(ball, delta)
         SCREEN.blit(paddle_img, [self.x, self.y])
 
-    def move(self):
+    def __move(self):
         paddle_move = pygame.mouse.get_rel()
         self.x += paddle_move[0] * 0.5
         if self.x < 0:
@@ -21,7 +21,7 @@ class Paddle:
         elif self.x >= SCREEN_WIDTH - PADDLE_WIDTH :
             self.x = SCREEN_WIDTH - PADDLE_WIDTH
 
-    def check_collision(self, ball, delta):
+    def __check_collision(self, ball, delta):
         check_pos_x = ball.position.x + (BALL_WIDTH / 2) + ball.direction.x * BALL_SPEED * delta
         check_pos_y = ball.position.y + BALL_HEIGHT + ball.direction.y * BALL_SPEED * delta
         paddle_split_pos = self.x + (PADDLE_WIDTH / 2)

@@ -10,10 +10,10 @@ class Ball:
         self.direction = pygame.math.Vector2(0, -1).normalize()
 
     def update(self, delta, paddle):
-        self.move(delta)
+        self.__move(delta)
         SCREEN.blit(ball_img, self.position)
 
-    def move(self, delta):        
+    def __move(self, delta):        
         if self.position.x + BALL_WIDTH + self.direction.x * BALL_SPEED * delta >= SCREEN_WIDTH:
             self.direction.x *= -1
         if self.position.x + self.direction.x * BALL_SPEED * delta <= 0:
