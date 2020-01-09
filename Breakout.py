@@ -7,14 +7,12 @@ from scorecard import Scorecard
 
 def main():
     game = Game()
-    paddle = Paddle()
-    ball = Ball(paddle)
 
     #Initiate pygame
     game.game_init()
 
     #Main game loop
-    game.game_loop(paddle, ball)
+    game.game_loop()
 
 
 if __name__ == '__main__':
