@@ -4,6 +4,8 @@ from config import *
 from paddle import Paddle
 from ball import Ball
 from brick import Brick
+from level import Level
+from scorecard import Scorecard
 
 class Game:
     def game_init(self):
@@ -15,9 +17,10 @@ class Game:
     def game_loop(self, paddle, ball):
         Clock = pygame.time.Clock()
         Rows = []
+        level = 1
         ball_active = False
 
-        GameHelper.load_level(50, Rows)
+        Level.load_level(50, Rows, level)
         
         Run = True
         while Run:
@@ -33,53 +36,21 @@ class Game:
                         pygame.quit()
                         exit()
 
-            ball_active = GameHelper.ball_active(ball, paddle, ball_active, delta)
-            GameHelper.update(Rows, ball, delta, paddle, ball_active)
-
-
-class GameHelper:
-    def load_level(y, Rows):
-        row = []
-        with open(os.path.join('levels', 'test_level.txt')) as level:
-            lines = level.readlines()
-        for obj in lines:
-            x = 21
-            new_row = []
-            row = obj.join('')
-            row = obj.split(',')
-            for img in row:
-                if int(img) == 0:
-                    x += 54
-                    continue
-                new_row.append(Brick(x, y, IMAGES[int(img)]))
-                x += 54
-            y += 22
-            Rows.append(new_row)
-
-    def update_brick_list(Rows, ball, delta):
-        for row in Rows:
-            for brick in row:
-                brick.update(ball, delta)
-                if brick.hit == True:
-                    row.remove(brick)
-
-    def ball_active(ball, paddle, ball_active, delta):
-        if ball_active == False:
-            ball.position.x = paddle.x + PADDLE_WIDTH / 2 - BALL_WIDTH / 2
-            ball.position.y = PADDLE_Y - BALL_HEIGHT - 1
-        else:
-            if ball.position.y > PADDLE_Y - BALL_HEIGHT + (BALL_SPEED * delta):
+            if len(Rows) == 0:
+                pygame.time.delay(300)
+                level += 1
+                Level.load_level(50, Rows, level)
                 ball_active = False
-        return ball_active
 
-    def update(rows, ball, delta, paddle, ball_active):
-        SCREEN.fill((0, 0, 0))
-        paddle.update(delta, ball)
-        ball.update(delta, paddle)
-        GameHelper.update_brick_list(rows, ball, delta)   
-        pygame.display.update()
+            SCREEN.fill((0, 0, 0))
+            Scorecard.draw_level(level)
 
-    
-    
+            paddle.update(delta, ball)
+            ball.update(delta, paddle)
 
-    
+            ball_active = ball.ball_active(paddle, ball_active, delta)
+
+            Level.update_level(Rows, ball, delta, level)   
+            
+            pygame.display.update()
+           

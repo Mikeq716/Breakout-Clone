@@ -3,13 +3,13 @@ from config import *
 from game import Game
 from paddle import Paddle
 from ball import Ball
+from scorecard import Scorecard
 
 def main():
-    #Create game objects
     game = Game()
     paddle = Paddle()
     ball = Ball(paddle)
-    
+
     #Initiate pygame
     game.game_init()
 
