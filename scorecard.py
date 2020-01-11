@@ -26,5 +26,7 @@ class Scorecard:
         levelRect.center = (600, 20)
         SCREEN.blit(level, levelRect)
         
+    def add_score(amount):
+        Scorecard.current_score += amount
 
     

@@ -14,5 +14,6 @@ class Brick:
 
     def hit(self, row):
         row.remove(self)
+
         
         

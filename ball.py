@@ -14,7 +14,13 @@ class Ball:
     def update(self, ball, paddle, delta):
         self.__move(delta)
         self.__check_paddle_collision(paddle, delta)
+        self.is_ball_active(paddle, delta)
         SCREEN.blit(ball_img, self.position)
+
+    def reset_ball(self):
+        self.ball_active = False
+        self.direction.x = 0
+        self.direction.y = 1
 
     def is_ball_active(self, paddle, delta):
         if self.ball_active == False:
@@ -22,7 +28,7 @@ class Ball:
             self.position.y = PADDLE_Y - BALL_HEIGHT - 1
         else:
             if self.position.y > PADDLE_Y - BALL_HEIGHT + (BALL_SPEED * delta):
-                self.ball_active = False
+                self.reset_ball()
                 Scorecard.lives_left += -1
 
     def check_brick_collision(self, ball, brick, delta):
