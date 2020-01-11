@@ -5,6 +5,7 @@ from ball import Ball
 from brick import Brick
 from level import Level
 from scorecard import Scorecard
+from gamehelper import Gamehelper
 
 class Game:
     def __init__(self):
@@ -35,21 +36,6 @@ class Game:
                         pygame.quit()
                         exit()
 
-            Gamehelper.update_game_loop(delta, self.paddle, self.ball, self.Rows)
+            Gamehelper.update_game_loop(self.ball, self.paddle, delta, self.Rows)
             Gamehelper.update_scorecard()
             pygame.display.update()
-
-
-class Gamehelper:
-    def update_scorecard():
-        Scorecard.draw_score(Scorecard.current_score)
-        Scorecard.draw_level(Level.current_level)
-
-    def update_game_loop(delta, paddle, ball, Rows):
-        SCREEN.fill((0, 0, 0))
-        paddle.update(delta, ball)
-        ball.update(delta)
-        Level.update_level(ball, delta, Level.current_level, Rows)
-        ball.is_ball_active(delta)
-        Level.is_level_done(Rows, ball)
-           

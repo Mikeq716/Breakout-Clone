@@ -3,6 +3,7 @@ from config import *
 
 class Scorecard:
     current_score = 0
+    lives_left = 3
 
     def draw_score(score):
         white = (255, 255, 255)
@@ -10,6 +11,13 @@ class Scorecard:
         scoreRect = score.get_rect()
         scoreRect.center = (100, 20)
         SCREEN.blit(score, scoreRect)
+
+    def draw_lives(lives_left):
+        white = (255, 255, 255)
+        lives = font.render('Lives Left: ' + str(lives_left), True, white)
+        livesRect = lives.get_rect()
+        livesRect.center = (300, 20)
+        SCREEN.blit(lives, livesRect)
 
     def draw_level(level):
         white = (255, 255, 255)

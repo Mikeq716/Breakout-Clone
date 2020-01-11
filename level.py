@@ -8,23 +8,9 @@ from scorecard import Scorecard
 class Level:
     current_level = 0
 
-    def update_level(ball, delta, level, Rows):
-        for row in Rows:
-            if len(row) == 0:
-                Rows.remove(row)     
-            for brick in row:
-                brick.update(ball, delta)
-                if brick.hit == True:
-                    row.remove(brick)
-
-    def is_level_done(Rows, ball):
-        if len(Rows) == 0:
-            Level.current_level += 1
-            Level.__new_level(Level.current_level, Rows)
-            ball.ball_active = False
-
-    def __new_level(level, Rows):
+    def new_level(level, Rows):
         pygame.time.delay(300)
+        Level.current_level += 1
         Level.__load_level(50, Rows, Level.current_level)
 
     def __select_level(level):
