@@ -35,7 +35,7 @@ class Game:
                     Run = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.ball.ball_active = True
+                        self.ball.activate_ball()
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         exit()

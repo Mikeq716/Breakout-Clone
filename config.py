@@ -3,6 +3,8 @@ import pygame
 
 #config.py
 #Definitions of all constants and paths to images
+
+#Initiate pygames font module and create the font used for the scorecard
 pygame.font.init()
 font = pygame.font.SysFont('comic.ttf', 26)
 
