@@ -29,4 +29,6 @@ class Scorecard:
     def add_score(amount):
         Scorecard.current_score += amount
 
+    def add_life():
+        Scorecard.lives_left += 1
     

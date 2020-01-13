@@ -1,9 +1,6 @@
 import pygame
 from config import *
 from game import Game
-from paddle import Paddle
-from ball import Ball
-from scorecard import Scorecard
 
 def main():
     game = Game()

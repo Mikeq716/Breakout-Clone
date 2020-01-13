@@ -1,15 +1,11 @@
 import pygame
 from config import *
-from paddle import Paddle
-from ball import Ball
-from brick import Brick
-from scorecard import Scorecard
+from brick import Brick, BRICK_VALUES
 
 class Level:
     current_level = 0
 
     def new_level(level, Rows):
-        pygame.time.delay(300)
         Level.current_level += 1
         Level.__load_level(50, Rows, Level.current_level)
 
