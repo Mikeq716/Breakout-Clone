@@ -22,6 +22,7 @@ class Gamehelper:
             Level.current_level = 0
             Scorecard.lives_left = 3
             paddle.reset_paddle_size()
+            ball.reset_speed()
             Gamehelper.load_level(Rows, ball)
 
     #Function Load Level

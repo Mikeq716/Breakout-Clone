@@ -10,7 +10,7 @@ class Ball:
         self.__position = pygame.math.Vector2(paddle.get_pos + paddle.get_width / 2 + BALL_WIDTH / 2)
         self.__direction = pygame.math.Vector2(0, -1).normalize()
         self.__ball_active = False
-        self.__ball_speed = 0.6
+        self.__ball_speed = 0.5
 
     #Update Function
     #Update function calculates new position and draws ball, checks for paddle collision and checks if ball is active
@@ -46,6 +46,11 @@ class Ball:
     def decrease_speed(self):
         self.__ball_speed -= 0.10
 
+    #Reset Speed Function
+    #Reset Speed Function sets the ball speed back to 0.5
+    def reset_speed(self):
+        self.__ball_speed = 0.5
+
     #Is Ball Active Function
     #Is Ball Active Function moves ball to middle of paddle each frame if __ball_active variable is False
     #Is Ball Active Function sets __ball_active to False and calls reset_ball and decrease_speed and removes a life if ball is active and moves below the paddle
@@ -67,20 +72,20 @@ class Ball:
         check_x = self.__position.x
         check_y = self.__position.y
         brick_pos = brick.get_pos
-        if check_x >= brick_pos.x and check_x <= brick_pos.x + BRICK_WIDTH: 
-            if check_y <= brick_pos.y + BRICK_HEIGHT and check_y >= brick_pos.y + BRICK_HEIGHT - (self.__ball_speed * delta) and self.__direction.y < 0:
+        if check_x > brick_pos.x and check_x < brick_pos.x + BRICK_WIDTH: 
+            if check_y < brick_pos.y + BRICK_HEIGHT and check_y > brick_pos.y + BRICK_HEIGHT - (self.__ball_speed * delta) and self.__direction.y < 0:
                 self.__direction.y *= -1
                 return True
-        if check_x >= brick_pos.x and check_x <= brick_pos.x + BRICK_WIDTH:
-            if check_y >= brick_pos.y and check_y <= brick_pos.y + (self.__ball_speed * delta) and self.__direction.y > 0:
+        if check_x > brick_pos.x and check_x < brick_pos.x + BRICK_WIDTH:
+            if check_y > brick_pos.y and check_y < brick_pos.y + (self.__ball_speed * delta) and self.__direction.y > 0:
                 self.__direction.y *= -1
                 return True
-        if check_y >= brick_pos.y and check_y <= brick_pos.y + BRICK_HEIGHT:
-            if check_x >= brick_pos.x and check_x <= brick_pos.x + (self.__ball_speed * delta) and self.__direction.x > 0:
+        if check_y > brick_pos.y and check_y < brick_pos.y + BRICK_HEIGHT:
+            if check_x > brick_pos.x and check_x < brick_pos.x + (self.__ball_speed * delta) and self.__direction.x > 0:
                 self.__direction.x *= -1
                 return True
-        if check_y >= brick_pos.y and check_y <= brick_pos.y + BRICK_HEIGHT:
-            if check_x <= brick_pos.x + BRICK_WIDTH and check_x >= brick_pos.x + BRICK_WIDTH - (self.__ball_speed * delta) and self.__direction.x < 0:
+        if check_y > brick_pos.y and check_y < brick_pos.y + BRICK_HEIGHT:
+            if check_x < brick_pos.x + BRICK_WIDTH and check_x > brick_pos.x + BRICK_WIDTH - (self.__ball_speed * delta) and self.__direction.x < 0:
                 self.__direction.x *= -1
                 return True
 
