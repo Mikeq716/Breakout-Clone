@@ -6,7 +6,7 @@ from scorecard import Scorecard
 class Powerup:
     def __init__(self, x, y, img):
         self.position = pygame.math.Vector2(x, y)
-        self.velocity = pygame.math.Vector2(random.randint(-1, 1), 1).normalize()
+        self.velocity = pygame.math.Vector2(random.randint(-1, 1), 2).normalize()
         self.img = img
 
     #Function Update

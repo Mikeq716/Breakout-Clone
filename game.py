@@ -29,6 +29,7 @@ class Game:
         Run = True
         while Run:
             delta = self.clock.tick()
+            print(delta)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
