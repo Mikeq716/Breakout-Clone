@@ -1,6 +1,5 @@
 import pygame
 from config import *
-from game import Game
 from state_machine import *
 
 def main():
@@ -9,11 +8,17 @@ def main():
     }
 
     state_dict = {
-        'menu': Menu()
+        'menu': Menu(),
+        'main_game': Main_Game()
     }
 
+    pygame.init()
+    pygame.display.set_caption("Breakout")
+    pygame.mouse.set_visible(0)
+    pygame.event.set_grab(True)
+
     app = Control(**settings)
-    app.setup_states(state_dict, 'menu')
+    app.setup_states(state_dict, 'main_game')
     app.main_game_loop()
 
     pygame.quit()
