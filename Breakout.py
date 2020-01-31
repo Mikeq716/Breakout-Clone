@@ -1,16 +1,23 @@
 import pygame
 from config import *
 from game import Game
+from state_machine import *
 
 def main():
-    game = Game()
+    settings = {
+        'size': (800, 600)
+    }
 
-    #Initiate pygame
-    game.game_init()
+    state_dict = {
+        'menu': Menu()
+    }
 
-    #Main game loop
-    game.game_loop()
+    app = Control(**settings)
+    app.setup_states(state_dict, 'menu')
+    app.main_game_loop()
 
+    pygame.quit()
+    sys.exit()
 
 if __name__ == '__main__':
     main()
