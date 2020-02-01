@@ -39,6 +39,8 @@ class Main_Game(States):
         self.game = Game()
         self.paddle = Paddle()
         self.ball = Ball(self.paddle)
+        self.rows = []
+        self.powerups = []
 
     def cleanup(self):
         pass
@@ -48,13 +50,11 @@ class Main_Game(States):
 
     def get_event(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                self.quit = True
-            elif event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE:
                 self.ball.activate_ball()
 
     def update(self, dt):     
-        self.game.game_loop(dt, self.ball, self.paddle)
+        self.game.game_loop(dt, self.paddle, self.ball, self.rows, self.powerups)
 
 class Control:
     def __init__(self, **settings):
@@ -84,6 +84,9 @@ class Control:
 
     def event_loop(self):
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.quit = True
             self.state.get_event(event)
 
     def main_game_loop(self):
