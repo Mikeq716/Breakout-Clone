@@ -28,6 +28,8 @@ brick_yellow_img = pygame.image.load(os.path.join('images/bricks/', 'brick_yello
 powerup_health_img = pygame.image.load(os.path.join('images/powerups/', 'health.png')).convert_alpha()
 powerup_increase_paddle_img = pygame.image.load(os.path.join('images/powerups/', 'increase_paddle.png')).convert_alpha()
 powerup_decrease_paddle_img = pygame.image.load(os.path.join('images/powerups/', 'decrease_paddle.png')).convert_alpha()
+start_game_img = pygame.image.load(os.path.join('images/menu/', 'start_game.png')).convert_alpha()
+exit_img = pygame.image.load(os.path.join('images/menu/', 'exit.png')).convert_alpha()
 
 IMAGES = {1: brick_blue_img, 2: brick_green_img, 3: brick_orange_img, 4: brick_pink_img, 5: brick_purple_img, 6: brick_red_img, 7: brick_yellow_img}
 

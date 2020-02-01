@@ -3,6 +3,7 @@ import sys
 from game import Game
 from paddle import Paddle
 from ball import Ball
+from config import *
 
 class States:
     def __init__(self):
@@ -16,49 +17,56 @@ class Menu(States):
     def __init__(self):
         States.__init__(self)
         self.next = 'main_game'
-
-    def cleanup(self):
-        pass
+        self.exit = SCREEN.blit(exit_img, (200, 350))
+        self.start = SCREEN.blit(start_game_img, (200, 50))
 
     def startup(self):
         pass
 
+    def cleanup(self):
+        pass
+
     def get_event(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            pos = pygame.mouse.get_pos()
+            if self.start.collidepoint(pos):
+                self.done = True
+            if self.exit.collidepoint(pos):
                 self.quit = True
+        if event.type == pygame.QUIT:
+            self.quit = True
 
     def update(self, dt):
-        pass
+        pygame.mouse.set_visible(1)
+        pygame.event.set_grab(False)
+        SCREEN.fill((0, 0, 0))
+        SCREEN.blit(start_game_img, (200, 50))
+        SCREEN.blit(exit_img, (200, 350))
     
 
 class Main_Game(States):
     def __init__(self):
         States.__init__(self)
         self.next = 'menu'
-        self.game = Game()
-        self.paddle = Paddle()
-        self.ball = Ball(self.paddle)
-        self.rows = []
-        self.powerups = []
-
-    def cleanup(self):
-        pass
 
     def startup(self):
-        pass
+        self.game = Game()
 
     def get_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                self.ball.activate_ball()
+                self.game.ball.activate_ball()
+            elif event.key == pygame.K_ESCAPE:
+                self.done = True
 
-    def update(self, dt):     
-        self.game.game_loop(dt, self.paddle, self.ball, self.rows, self.powerups)
+    def update(self, dt):
+        pygame.mouse.set_visible(0)
+        pygame.event.set_grab(True)     
+        self.game.run_game(dt)
+
 
 class Control:
-    def __init__(self, **settings):
-        self.__dict__.update(settings)
+    def __init__(self):
         self.done = False
         self.clock = pygame.time.Clock()
     
@@ -70,7 +78,6 @@ class Control:
     def flip_state(self):
         self.state.done = False
         previous, self.state_name = self.state_name, self.state.next
-        self.state.cleanup()
         self.state = self.state_dict[self.state_name]
         self.state.startup()
         self.state.previous = previous
