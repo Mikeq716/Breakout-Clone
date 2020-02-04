@@ -1,16 +1,23 @@
 import os
 import pygame
 
+from . import tools
+
 #config.py
 #Definitions of all constants and paths to images
+
+pygame.init()
+
+SCREEN_SIZE = (800, 600)
+CAPTION = "Breakout"
+SCREEN_RECT = pygame.Rect((0, 0), SCREEN_SIZE)
+
+pygame.display.set_caption(CAPTION)
+SCREEN = pygame.display.set_mode(SCREEN_SIZE)
 
 #Initiate pygames font module and create the font used for the scorecard
 pygame.font.init()
 font = pygame.font.SysFont('comic.ttf', 26)
-
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #Load various game images
 paddle_smallest_img = pygame.image.load(os.path.join('images/paddles/', 'paddle_smallest.png')).convert_alpha()
