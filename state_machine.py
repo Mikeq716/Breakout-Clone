@@ -51,6 +51,8 @@ class Main_Game(States):
 
     def startup(self):
         self.game = Game()
+        pygame.mouse.set_visible(0)
+        pygame.event.set_grab(True)  
 
     def get_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -59,9 +61,7 @@ class Main_Game(States):
             elif event.key == pygame.K_ESCAPE:
                 self.done = True
 
-    def update(self, dt):
-        pygame.mouse.set_visible(0)
-        pygame.event.set_grab(True)     
+    def update(self, dt):   
         self.game.run_game(dt)
 
 
@@ -91,9 +91,6 @@ class Control:
 
     def event_loop(self):
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.quit = True
             self.state.get_event(event)
 
     def main_game_loop(self):
