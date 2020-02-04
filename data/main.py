@@ -1,9 +1,9 @@
-from . import tools
+from . import tools, config
 from .states import menu, game
 
 
 def main():
-    app = tools.Control("Breakout")
+    app = tools.Control(config.CAPTION)
     
     state_dict = {"MENU" : menu.Menu(),
                   "GAME" : game.Game()
