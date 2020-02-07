@@ -25,6 +25,7 @@ class Game:
     def update(self):
         self.delta = self.clock.tick()
         self.paddle.update(self.delta)
+        self.ball.update(self.ball, self.paddle, self.delta)
 
         if len(self.rows) == 0:
             self.ball.reset_ball(self.paddle)
@@ -40,8 +41,6 @@ class Game:
                 if self.ball.check_brick_collision(self.ball, brick, self.delta) == True:
                     self.scorecard.add_score(brick.get_value)
                     brick.hit(row)
-
-        self.ball.update(self.ball, self.paddle, self.delta)
 
     def draw(self, surface):
         surface.fill((0, 0, 0))

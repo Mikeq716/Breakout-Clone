@@ -58,20 +58,20 @@ class Ball:
         check_x = self.__position.x
         check_y = self.__position.y
         brick_pos = brick.get_pos
-        if check_x > brick_pos.x and check_x < brick_pos.x + 29: 
-            if check_y < brick_pos.y + 15 and check_y > brick_pos.y + 15 - (self.__ball_speed * delta) and self.__direction.y < 0:
+        if check_x > brick_pos.x and check_x < brick_pos.x + 54: 
+            if check_y < brick_pos.y + 22 and check_y > brick_pos.y + 22 - (self.__ball_speed * delta) and self.__direction.y < 0:
                 self.__direction.y *= -1
                 return True
-        if check_x > brick_pos.x and check_x < brick_pos.x + 29:
+        if check_x > brick_pos.x and check_x < brick_pos.x + 54:
             if check_y > brick_pos.y and check_y < brick_pos.y + (self.__ball_speed * delta) and self.__direction.y > 0:
                 self.__direction.y *= -1
                 return True
-        if check_y > brick_pos.y and check_y < brick_pos.y + 15:
+        if check_y > brick_pos.y and check_y < brick_pos.y + 22:
             if check_x > brick_pos.x and check_x < brick_pos.x + (self.__ball_speed * delta) and self.__direction.x > 0:
                 self.__direction.x *= -1
                 return True
-        if check_y > brick_pos.y and check_y < brick_pos.y + 15:
-            if check_x < brick_pos.x + 29 and check_x > brick_pos.x + 29 - (self.__ball_speed * delta) and self.__direction.x < 0:
+        if check_y > brick_pos.y and check_y < brick_pos.y + 22:
+            if check_x < brick_pos.x + 54 and check_x > brick_pos.x + 54 - (self.__ball_speed * delta) and self.__direction.x < 0:
                 self.__direction.x *= -1
                 return True
 
@@ -81,7 +81,7 @@ class Ball:
         if self.__position.y > 550 - 16 + (self.__ball_speed * delta):
             self.reset_ball(paddle)
             self.decrease_speed()
-            Scorecard.lives_left += -1
+            #Scorecard.lives_left += -1
 
     #Inactive Ball Function
     #Inactive Ball Function checks whether the __ball_active variable is False, if so it moves the ball to the middle of the paddle each frame
