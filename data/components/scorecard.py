@@ -1,5 +1,6 @@
 import pygame
-from config import *
+
+from .. import config
 
 class Scorecard:
     current_score = 0
@@ -7,38 +8,43 @@ class Scorecard:
 
     #Function Draw Score
     #Function Draw Score draws to current score to the screen for the current frame
-    def draw_score(score):
+    def draw_score(self, surface):
         white = (255, 255, 255)
-        score = font.render('Score: ' + str(score), True, white)
+        score = config.font.render('Score: ' + str(self.current_score), True, white)
         scoreRect = score.get_rect()
         scoreRect.center = (100, 20)
-        SCREEN.blit(score, scoreRect)
+        surface.blit(score, scoreRect)
 
     #Function Draw Lives
     #Function Draw Lives draws the current lives left to the screen for the current frame
-    def draw_lives(lives_left):
+    def draw_lives(self, surface):
         white = (255, 255, 255)
-        lives = font.render('Lives Left: ' + str(lives_left), True, white)
+        lives = config.font.render('Lives Left: ' + str(self.lives_left), True, white)
         livesRect = lives.get_rect()
         livesRect.center = (300, 20)
-        SCREEN.blit(lives, livesRect)
+        surface.blit(lives, livesRect)
 
     #Function Draw Level
     #Function Draw Level draws the current level to the screen for the current frame
-    def draw_level(level):
+    def draw_level(self, level, surface):
         white = (255, 255, 255)
-        level = font.render('Level: ' + str(level), True, white)
+        level = config.font.render('Level: ' + str(level), True, white)
         levelRect = level.get_rect()
         levelRect.center = (600, 20)
-        SCREEN.blit(level, levelRect)
+        surface.blit(level, levelRect)
 
     #Function Add Score
     #Function Add Score adds the hit bricks value to the current score    
-    def add_score(amount):
-        Scorecard.current_score += amount
+    def add_score(self, amount):
+        self.current_score += amount
 
     #Function Add Life
     #Function Add Life adds 1 life to current lives left
-    def add_life():
-        Scorecard.lives_left += 1
+    def add_life(self):
+        self.lives_left += 1
+
+    def update_scorecard(self, level, surface):
+        self.draw_lives(surface)
+        self.draw_score(surface)
+        self.draw_level(level, surface)
     

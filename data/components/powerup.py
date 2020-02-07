@@ -1,7 +1,5 @@
 import pygame
 import random
-from config import *
-from scorecard import Scorecard
 
 class Powerup:
     def __init__(self, x, y, img):

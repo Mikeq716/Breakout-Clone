@@ -9,7 +9,6 @@ class Control:
         self.screen = pygame.display.get_surface()
         self.caption = caption
         self.done = False
-        self.clock = pygame.time.Clock()
         self.state_machine = state_machine.StateMachine()
 
     def update(self):

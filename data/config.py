@@ -42,5 +42,3 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
 MENU_IMGS = {   'start_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'start_game.png')).convert_alpha(),
                 'exit_img' : pygame.image.load(os.path.join('resources/images/menu/', 'exit.png')).convert_alpha()
 }
-
-#IMAGES = {1: brick_blue_img, 2: brick_green_img, 3: brick_orange_img, 4: brick_pink_img, 5: brick_purple_img, 6: brick_red_img, 7: brick_yellow_img}
