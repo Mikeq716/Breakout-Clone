@@ -27,9 +27,6 @@ class Brick:
     #Function Hit
     #Function Hit determines if a powerup should spawn, then selects a random powerup and appends it to the list of active powerups, and then it removes itself from the level
     def hit(self, row):
-        if random.randint(1, 20) == 1:
-            pu = random.randint(1, 3)
-            #pu_list.append(POWERUPS[pu](self.__pos.x, self.__pos.y, PU_IMG[pu]))
         row.remove(self)
 
 
