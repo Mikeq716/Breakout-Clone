@@ -20,5 +20,7 @@ class Menu(state_machine.State):
             pos = pygame.mouse.get_pos()
             if self.exit_button.collidepoint(pos):
                 self.quit = True
+            if self.start_button.collidepoint(pos):
+                self.done = True
                 
                 

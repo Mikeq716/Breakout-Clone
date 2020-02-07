@@ -13,8 +13,8 @@ class Control:
         self.state_machine = state_machine.StateMachine()
 
     def update(self):
-        self.state_machine.update()
         self.done = self.state_machine.done
+        self.state_machine.update()
 
     def draw(self):
         if not self.state_machine.state.done:

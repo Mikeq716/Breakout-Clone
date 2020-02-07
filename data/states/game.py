@@ -10,8 +10,14 @@ class Game:
     def update(self):
         pass
 
-    def draw(self, surface):
+    def startup(self):
         pass
+
+    def cleanup(self):
+        pass
+
+    def draw(self, surface):
+        surface.fill((0, 0, 0))
 
     def get_event(self, event):
         pass
