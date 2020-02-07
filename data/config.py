@@ -15,6 +15,11 @@ SCREEN_RECT = pygame.Rect((0, 0), SCREEN_SIZE)
 pygame.display.set_caption(CAPTION)
 SCREEN = pygame.display.set_mode(SCREEN_SIZE)
 
+SCREEN_WIDTH = SCREEN.get_width()
+SCREEN_HEIGHT = SCREEN.get_height()
+
+PADDLE_Y = SCREEN_HEIGHT - 50
+
 #Initiate pygames font module and create the font used for the scorecard
 pygame.font.init()
 font = pygame.font.SysFont('comic.ttf', 26)
@@ -42,3 +47,8 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
 MENU_IMGS = {   'start_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'start_game.png')).convert_alpha(),
                 'exit_img' : pygame.image.load(os.path.join('resources/images/menu/', 'exit.png')).convert_alpha()
 }
+
+BRICK_WIDTH = BRICK_IMGS['brick_blue_img'].get_width()
+BRICK_HEIGHT = BRICK_IMGS['brick_blue_img'].get_height()
+
+BALL_SIZE = BALL_IMGS['ball_img'].get_width()

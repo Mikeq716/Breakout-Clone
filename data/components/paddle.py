@@ -6,8 +6,8 @@ from .. import config
 
 class Paddle:
     def __init__(self):
-        self.__x = 400
-        self.__y = 550
+        self.__x = config.SCREEN_WIDTH / 2
+        self.__y = config.PADDLE_Y
         self.__current_size = 3
         self.__current_img = CURRENT_IMG[self.__current_size]
         self.__width = self.__current_img.get_width()
@@ -64,8 +64,8 @@ class Paddle:
         self.__x += paddle_move[0] * 0.5
         if self.__x < 0:
             self.__x = 0
-        elif self.__x >= 800 - self.__width:
-            self.__x = 800 - self.__width
+        elif self.__x >= config.SCREEN_WIDTH - self.__width:
+            self.__x = config.SCREEN_WIDTH - self.__width
 
 CURRENT_IMG = { 1 : config.PADDLE_IMGS['paddle_smallest_img'],
                 2 : config.PADDLE_IMGS['paddle_smaller_img'],

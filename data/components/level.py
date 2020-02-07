@@ -34,6 +34,11 @@ class Level:
                 x += 54
             y += 22
             Rows.append(new_row)
+
+    def draw_level(self, rows, surface):
+        for row in rows:
+            for brick in row:
+                brick.update(surface)
     
 IMAGES = {  1 : config.BRICK_IMGS['brick_blue_img'],
             2 : config.BRICK_IMGS['brick_green_img'],

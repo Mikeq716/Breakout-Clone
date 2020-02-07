@@ -43,6 +43,9 @@ class Scorecard:
     def add_life(self):
         self.lives_left += 1
 
+    def remove_life(self):
+        self.lives_left -= 1
+
     def update_scorecard(self, level, surface):
         self.draw_lives(surface)
         self.draw_score(surface)
