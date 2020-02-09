@@ -47,6 +47,7 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
 MENU_IMGS = {   'start_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'start_game.png')).convert_alpha(),
                 'exit_img' : pygame.image.load(os.path.join('resources/images/menu/', 'exit.png')).convert_alpha()
 }
+SPLASH_IMGS = { 'splash_img' : pygame.image.load(os.path.join('resources/images/spash/', 'spash.png')).convert_alpha()}
 
 BRICK_WIDTH = BRICK_IMGS['brick_blue_img'].get_width()
 BRICK_HEIGHT = BRICK_IMGS['brick_blue_img'].get_height()
