@@ -11,7 +11,7 @@ class Brick:
     #Function Get Pos returns the bricks position
     @property
     def get_pos(self):
-        return pygame.math.Vector2(self.__pos.x, self.__pos.y)
+        return self.__pos
 
     #Function Get Value
     #Function Get Value returns the bricks value

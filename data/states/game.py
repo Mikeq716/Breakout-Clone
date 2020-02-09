@@ -59,10 +59,10 @@ class Game:
             if len(row) == 0:
                 self.rows.remove(row)
             for brick in row:
-                pos = self.get_pos()
+                
                 if self.ball.check_brick_collision(self.ball, brick, self.delta) == True: 
                     self.scorecard.add_score(brick.get_value)
-                    Powerup.spawn_powerup(self.powerups, brick_pos.x, brick_pos.y)
+                    Powerup.spawn_powerup(self.powerups, brick.get_pos)
                     brick.hit(row)
 
     def is_game_over(self):

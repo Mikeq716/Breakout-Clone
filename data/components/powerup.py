@@ -4,16 +4,15 @@ import random
 from .. import config
 
 class Powerup:
-    def __init__(self, x, y, img):
-        self.position = pygame.math.Vector2(x, y)
+    def __init__(self, pos, img):
+        self.position = pygame.math.Vector2(pos)
         self.velocity = pygame.math.Vector2(random.randint(-1, 1), 2).normalize()
         self.img = img
 
-    def spawn_powerup(pu_list, x, y):
-        
+    def spawn_powerup(pu_list, pos):
         if random.randint(1, 10) == 1:
             pu = random.randint(1, 3)
-            pu_list.append(POWERUPS[pu](x, y, PU_IMG[pu]))
+            pu_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
     #Function Update moves the spawned powerup, checks if it collided with the paddle, and deletes it if it drops below the paddle
