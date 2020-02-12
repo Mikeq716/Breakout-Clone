@@ -55,6 +55,8 @@ class Game:
             self.level.new_level(self.current_level, self.rows)
             self.ball.increase_speed()
             self.paddle.reset_paddle_size()
+            self.spawned_powerups = []
+            self.activated_powerups = []
             self.current_level += 1
 
     def draw(self, surface):
