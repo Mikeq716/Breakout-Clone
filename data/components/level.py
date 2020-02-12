@@ -6,7 +6,7 @@ from ..components.brick import Brick, BRICK_VALUES
 class Level:
     #Function New Level
     #Function New Level adds 1 to the current level and then loads the new level
-    def new_level(self, level, Rows):
+    def new_level(level, Rows):
         level += 1
         Level.__load_level(50, Rows, level)
 
@@ -34,11 +34,6 @@ class Level:
                 x += 54
             y += 22
             Rows.append(new_row)
-
-    def draw_level(self, rows, surface):
-        for row in rows:
-            for brick in row:
-                brick.update(surface)
     
 IMAGES = {  1 : config.BRICK_IMGS['brick_blue_img'],
             2 : config.BRICK_IMGS['brick_green_img'],

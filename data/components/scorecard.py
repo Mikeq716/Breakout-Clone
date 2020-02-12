@@ -9,8 +9,8 @@ class Scorecard:
     #Function Draw Score
     #Function Draw Score draws to current score to the screen for the current frame
     def draw_score(self, surface):
-        white = (255, 255, 255)
-        score = config.font.render('Score: ' + str(self.current_score), True, white)
+        text_color = (191, 191, 191)
+        score = config.font.render('Score: ' + str(self.current_score), True, text_color)
         scoreRect = score.get_rect()
         scoreRect.center = (100, 20)
         surface.blit(score, scoreRect)
@@ -18,8 +18,8 @@ class Scorecard:
     #Function Draw Lives
     #Function Draw Lives draws the current lives left to the screen for the current frame
     def draw_lives(self, surface):
-        white = (255, 255, 255)
-        lives = config.font.render('Lives Left: ' + str(self.lives_left), True, white)
+        text_color = (191, 191, 191)
+        lives = config.font.render('Lives Left: ' + str(self.lives_left), True, text_color)
         livesRect = lives.get_rect()
         livesRect.center = (300, 20)
         surface.blit(lives, livesRect)
@@ -27,8 +27,8 @@ class Scorecard:
     #Function Draw Level
     #Function Draw Level draws the current level to the screen for the current frame
     def draw_level(self, level, surface):
-        white = (255, 255, 255)
-        level = config.font.render('Level: ' + str(level), True, white)
+        text_color = (191, 191, 191)
+        level = config.font.render('Level: ' + str(level), True, text_color)
         levelRect = level.get_rect()
         levelRect.center = (600, 20)
         surface.blit(level, levelRect)

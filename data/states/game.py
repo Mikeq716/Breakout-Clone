@@ -1,7 +1,8 @@
 import pygame
 
 from .. import config, state_machine
-from ..components import paddle, ball, scorecard, level, brick
+from ..components import paddle, ball, scorecard, brick
+from ..components.level import Level
 from ..components.powerup import *
 
 class Game:
@@ -11,7 +12,6 @@ class Game:
         self.paddle = paddle.Paddle()
         self.ball = ball.Ball(self.paddle)
         self.scorecard = scorecard.Scorecard()
-        self.level = level.Level()
         self.current_level = 0
         self.rows = []
         self.spawned_powerups = []
@@ -51,8 +51,8 @@ class Game:
                 powerup.update(self.activated_powerups, self.paddle, self.ball, self.scorecard, self.delta)
         
         if len(self.rows) == 0:
+            Level.new_level(self.current_level, self.rows)
             self.ball.reset_ball(self.paddle)
-            self.level.new_level(self.current_level, self.rows)
             self.ball.increase_speed()
             self.paddle.reset_paddle_size()
             self.spawned_powerups = []
@@ -63,8 +63,11 @@ class Game:
         surface.fill((0, 0, 0))
         self.paddle.draw(surface)
         self.ball.draw(surface)
-        self.level.draw_level(self.rows, surface)
         self.scorecard.update_scorecard(self.current_level, surface)
+
+        for row in self.rows:
+            for brick in row:
+                brick.draw(surface)
 
         for powerup in self.spawned_powerups:
             powerup.draw(surface)

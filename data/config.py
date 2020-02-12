@@ -22,7 +22,7 @@ PADDLE_Y = SCREEN_HEIGHT - 50
 
 #Initiate pygames font module and create the font used for the scorecard
 pygame.font.init()
-font = pygame.font.SysFont('comic.ttf', 26)
+font = pygame.font.SysFont('georgia.ttf', 26)
 
 #Load various game images
 PADDLE_IMGS = { 'paddle_smallest_img' : pygame.image.load(os.path.join('resources/images/paddles/', 'paddle_smallest.png')).convert_alpha(),
@@ -47,7 +47,9 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
                 'powerup_increase_ball_speed_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'increase_ball_speed.png')).convert_alpha(),
                 'powerup_decrease_ball_speed_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'decrease_ball_speed.png')).convert_alpha(),
                 'powerup_increase_ball_size_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'increase_ball_size.png')).convert_alpha(),
-                'powerup_nuclear_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'nuclear_ball.png')).convert_alpha() 
+                'powerup_nuclear_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'nuclear_ball.png')).convert_alpha(),
+                'powerup_health_decrease_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'health_decrease.png')).convert_alpha(),
+                'powerup_hide_bricks_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'hide_bricks.png')).convert_alpha()
 }
 MENU_IMGS = {   'new_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'new_game.png')).convert_alpha(),
                 'resume_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'resume_game.png')).convert_alpha(),
@@ -59,3 +61,5 @@ BRICK_WIDTH = BRICK_IMGS['brick_blue_img'].get_width()
 BRICK_HEIGHT = BRICK_IMGS['brick_blue_img'].get_height()
 
 NEW_GAME = False
+
+HIDE_BRICKS = False

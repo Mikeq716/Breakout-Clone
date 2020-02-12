@@ -1,6 +1,8 @@
 import pygame
 import random
 
+from .. import config
+
 class Brick:
     def __init__(self, x, y, img, value):
         self.__pos = pygame.math.Vector2(x,y)
@@ -19,10 +21,11 @@ class Brick:
     def get_value(self):
         return self.__value
 
-    #Function Update
-    #Function Update draws the brick to the screen
-    def update(self, surface):
-        surface.blit(self.__img, [self.__pos.x, self.__pos.y])
+    #Function Draw
+    #Function Draw draws the brick to the screen
+    def draw(self, surface):
+        if config.HIDE_BRICKS == False:
+            surface.blit(self.__img, [self.__pos.x, self.__pos.y])
 
     #Function Hit
     #Function Hit determines if a powerup should spawn, then selects a random powerup and appends it to the list of active powerups, and then it removes itself from the level

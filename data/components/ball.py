@@ -80,12 +80,12 @@ class Ball:
                     self.__direction.y *= -1
                 return True
         if check_x > brick_pos.x and check_x < brick_pos.x + config.BRICK_WIDTH:
-            if check_y > brick_pos.y and check_y < brick_pos.y + (self.__ball_speed * delta) and self.__direction.y > 0:
+            if check_y + self.__size > brick_pos.y and check_y < brick_pos.y + (self.__ball_speed * delta) and self.__direction.y > 0:
                 if self.__nuclear == False:
                     self.__direction.y *= -1
                 return True
         if check_y > brick_pos.y and check_y < brick_pos.y + config.BRICK_HEIGHT:
-            if check_x > brick_pos.x and check_x < brick_pos.x + (self.__ball_speed * delta) and self.__direction.x > 0:
+            if check_x + self.__size > brick_pos.x and check_x < brick_pos.x + (self.__ball_speed * delta) and self.__direction.x > 0:
                 if self.__nuclear == False:
                     self.__direction.x *= -1
                 return True

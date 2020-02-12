@@ -15,7 +15,7 @@ class Powerup:
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
         if random.randint(1, 10) == 1:
-            pu = random.randint(1, 7)
+            pu = random.randint(1, 9)
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
@@ -70,6 +70,20 @@ class HealthPowerup(Powerup):
         self.delete(activated_list)
 
 
+class HealthDecrease(Powerup):
+    #Function Activate
+    #Function Activate removes a life from the current lives unless there is only 1 life left
+    def activate(self, paddle, ball, scorecard):
+        if scorecard.lives_left > 1:
+            scorecard.remove_life()
+        self.activated = True
+
+    #Function Update
+    #Function Update for the HealthDecrease powerup simply deletes it from the activated list
+    def update(self, activated_list, paddle, ball, scorecard, delta):
+        self.delete(activated_list)
+
+
 class IncreasePaddleSize(Powerup):
     #Function Activate
     #Function Activate for the IncreasePaddleSize powerup increases the paddles size if its not at maximum and then deletes itself
@@ -81,7 +95,7 @@ class IncreasePaddleSize(Powerup):
     #Function Update for the IncreasePaddleSize powerup resets the paddle size after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 5000:
+        if self.timer >= 10000:
             paddle.reset_paddle_size()
             self.delete(activated_list)
 
@@ -97,7 +111,7 @@ class DecreasePaddleSize(Powerup):
     #Function Update for the DecreasePaddleSize powerup resets the paddle size after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 5000:
+        if self.timer >= 10000:
             paddle.reset_paddle_size()
             self.delete(activated_list)
 
@@ -113,7 +127,7 @@ class IncreaseBallSpeed(Powerup):
     #Function Update for the IncreaseBallSpeed powerup resets the ball speed after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 5000:
+        if self.timer >= 10000:
             ball.decrease_speed()
             self.delete(activated_list)
 
@@ -129,7 +143,7 @@ class DecreaseBallSpeed(Powerup):
     #Function Update for the DecreaseBallSpeed powerup resets the ball speed after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 5000:
+        if self.timer >= 10000:
             ball.increase_speed()
             self.delete(activated_list)
 
@@ -145,7 +159,7 @@ class IncreaseBallSize(Powerup):
     #Function Update for the IncreaseBallSize powerup resets the ball size after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 5000:
+        if self.timer >= 10000:
             ball.decrease_size()
             self.delete(activated_list)
 
@@ -161,8 +175,24 @@ class NuclearBall(Powerup):
     #Function Update for the NuclearBall powerup resets the ball to normal after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 5000:
+        if self.timer >= 10000:
             ball.deactivate_nuclear()
+            self.delete(activated_list)
+
+
+class HideBricks(Powerup):
+    #Function Activate
+    #Function Activate for the HideBricks powerup sets the HIDE_BRICKS variable in config to true
+    def activate(self, paddle, ball, scorecard):
+        config.HIDE_BRICKS = True
+        self.activated = True
+
+    #Function Update
+    #Function Update for the HideBricks powerup sets the HIDE_BRICKS variable in config back to false after 10 seconds and deletes the powerup from the activated list
+    def update(self, activated_list, paddle, ball, scorecard, delta):
+        self.timer += delta
+        if self.timer >= 10000:
+            config.HIDE_BRICKS = False
             self.delete(activated_list)
 
    
@@ -172,7 +202,9 @@ POWERUPS = {1 : HealthPowerup,
             4 : IncreaseBallSpeed,
             5 : DecreaseBallSpeed,
             6 : IncreaseBallSize,
-            7 : NuclearBall
+            7 : NuclearBall,
+            8 : HealthDecrease,
+            9 : HideBricks
 }
 
 PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
@@ -181,6 +213,8 @@ PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
             4 : config.POWERUP_IMGS['powerup_increase_ball_speed_img'],
             5 : config.POWERUP_IMGS['powerup_decrease_ball_speed_img'], 
             6 : config.POWERUP_IMGS['powerup_increase_ball_size_img'],
-            7 : config.POWERUP_IMGS['powerup_nuclear_ball_img']
+            7 : config.POWERUP_IMGS['powerup_nuclear_ball_img'],
+            8 : config.POWERUP_IMGS['powerup_health_decrease_img'],
+            9 : config.POWERUP_IMGS['powerup_hide_bricks_img']
 }
             
