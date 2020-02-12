@@ -20,8 +20,7 @@ SCREEN_HEIGHT = SCREEN.get_height()
 
 PADDLE_Y = SCREEN_HEIGHT - 50
 
-#Initiate pygames font module and create the font used for the scorecard
-pygame.font.init()
+#Create the font used for the scorecard
 font = pygame.font.SysFont('georgia.ttf', 26)
 
 #Load various game images
