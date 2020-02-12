@@ -8,7 +8,7 @@ class StateMachine:
         self.state_dict = {}
         self.state_name = None
         self.state = None
-    
+
     def setup_states(self, state_dict, start_state):
         self.state_dict = state_dict
         self.state_name = start_state
@@ -41,13 +41,14 @@ class State:
         self.quit = False
         self.next = None
         self.previous = None
-        self.persist = {}
+        self.clock = pygame.time.Clock()
+
 
     def get_event(self, event):
         pass
 
-    def startup(self, persistant):
-        self.persist = persistant
+    def startup(self):
+        pass
 
     def cleanup(self):
         self.done = False

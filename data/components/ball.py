@@ -5,21 +5,25 @@ from .. import config
 #Ball class definition
 class Ball:
     def __init__(self, paddle):
-        self.__position = pygame.math.Vector2(paddle.get_pos + paddle.get_width / 2 + config.BALL_SIZE / 2)
+        self.__img = config.BALL_IMGS['ball_img']
+        self.__size = self.__img.get_width()
+        self.__position = pygame.math.Vector2(paddle.get_pos + paddle.get_width / 2 + self.__size / 2)
         self.__direction = pygame.math.Vector2(0, -1).normalize()
         self.__ball_active = False
         self.__ball_speed = 0.5
+        self.__nuclear = False
 
     #Update Function
     #Update function calculates new position and draws ball, checks for paddle collision and checks if ball is active
     def update(self, ball, paddle, delta, scorecard):
+        self.__size = self.__img.get_width()
         self.__move(delta)
         self.__check_paddle_collision(paddle, delta)
         self.__inactive_ball(paddle, delta)
         self.missed_ball(paddle, delta, scorecard)
 
     def draw(self, surface):
-        surface.blit(config.BALL_IMGS['ball_img'], self.__position)
+        surface.blit(self.__img, self.__position)
 
     #Activate Ball Function
     #Activate Ball Function sets the balls __ball_active variable to True
@@ -34,23 +38,35 @@ class Ball:
         self.__ball_active = False
         self.__direction.x = 0
         self.__direction.y = 1
-        self.__position.x = paddle_pos + paddle_width / 2 - config.BALL_SIZE / 2
-        self.__position.y = config.PADDLE_Y - config.BALL_SIZE - 1
+        self.__position.x = paddle_pos + paddle_width / 2 - self.__size / 2
+        self.__position.y = config.PADDLE_Y - self.__size - 1
 
     #Increase Speed Function
     #Increase Speed Function increases the balls __ball_speed variable by 0.10
     def increase_speed(self):
-        self.__ball_speed += 0.10
+        self.__ball_speed += 0.05
 
     #Decrease Speed Function
     #Decrease Speed Function decreases the balls __ball_speed variable by 0.10
     def decrease_speed(self):
-        self.__ball_speed -= 0.10
+        self.__ball_speed -= 0.05
 
     #Reset Speed Function
     #Reset Speed Function sets the ball speed back to 0.5
     def reset_speed(self):
         self.__ball_speed = 0.5
+
+    def increase_size(self):
+        self.__img = config.BALL_IMGS['large_ball_img']
+
+    def decrease_size(self):
+        self.__img = config.BALL_IMGS['ball_img']
+
+    def activate_nuclear(self):
+        self.__nuclear = True
+
+    def deactivate_nuclear(self):
+        self.__nuclear = False
 
     #Check Brick Collision Function
     #Check Brick Collision Function checks if ball has collided with brick and if it has it reverses balls direction on the correct axis and returns true
@@ -60,25 +76,29 @@ class Ball:
         brick_pos = brick.get_pos
         if check_x > brick_pos.x and check_x < brick_pos.x + config.BRICK_WIDTH: 
             if check_y < brick_pos.y + config.BRICK_HEIGHT and check_y > brick_pos.y + config.BRICK_HEIGHT - (self.__ball_speed * delta) and self.__direction.y < 0:
-                self.__direction.y *= -1
+                if self.__nuclear == False:    
+                    self.__direction.y *= -1
                 return True
         if check_x > brick_pos.x and check_x < brick_pos.x + config.BRICK_WIDTH:
             if check_y > brick_pos.y and check_y < brick_pos.y + (self.__ball_speed * delta) and self.__direction.y > 0:
-                self.__direction.y *= -1
+                if self.__nuclear == False:
+                    self.__direction.y *= -1
                 return True
         if check_y > brick_pos.y and check_y < brick_pos.y + config.BRICK_HEIGHT:
             if check_x > brick_pos.x and check_x < brick_pos.x + (self.__ball_speed * delta) and self.__direction.x > 0:
-                self.__direction.x *= -1
+                if self.__nuclear == False:
+                    self.__direction.x *= -1
                 return True
         if check_y > brick_pos.y and check_y < brick_pos.y + config.BRICK_HEIGHT:
             if check_x < brick_pos.x + config.BRICK_WIDTH and check_x > brick_pos.x + config.BRICK_WIDTH - (self.__ball_speed * delta) and self.__direction.x < 0:
-                self.__direction.x *= -1
+                if self.__nuclear == False:
+                    self.__direction.x *= -1
                 return True
 
     #Missed Ball Function
     #Missed Ball Function will check whether the ball has gone below the paddle and if so reset it, decrease its speed, and remove 1 life from lives left
     def missed_ball(self, paddle, delta, scorecard):
-        if self.__position.y > config.PADDLE_Y - config.BALL_SIZE + (self.__ball_speed * delta):
+        if self.__position.y > config.PADDLE_Y - self.__size + (self.__ball_speed * delta):
             scorecard.remove_life()
             self.reset_ball(paddle)
             self.decrease_speed()
@@ -89,8 +109,8 @@ class Ball:
         paddle_pos = paddle.get_pos
         paddle_width = paddle.get_width
         if self.__ball_active == False:
-            self.__position.x = paddle_pos + paddle_width / 2 - config.BALL_SIZE / 2
-            self.__position.y = config.PADDLE_Y - config.BALL_SIZE - 1
+            self.__position.x = paddle_pos + paddle_width / 2 - self.__size / 2
+            self.__position.y = config.PADDLE_Y - self.__size - 1
 
     #Check Paddle Collision Function
     #Check Paddle Collision Function checks if ball has collided with the paddle and returns true if it has
@@ -98,8 +118,8 @@ class Ball:
     def __check_paddle_collision(self, paddle, delta):
         paddle_pos = paddle.get_pos
         paddle_width = paddle.get_width
-        check_pos_x = self.__position.x + (config.BALL_SIZE / 2) + self.__direction.x * self.__ball_speed * delta
-        check_pos_y = self.__position.y + config.BALL_SIZE + self.__direction.y * self.__ball_speed * delta
+        check_pos_x = self.__position.x + (self.__size / 2) + self.__direction.x * self.__ball_speed * delta
+        check_pos_y = self.__position.y + self.__size + self.__direction.y * self.__ball_speed * delta
         paddle_split_pos = paddle_pos + (paddle_width / 2)
         y_vel = self.__direction.y
         if check_pos_y >= config.PADDLE_Y:
@@ -116,7 +136,7 @@ class Ball:
     #Function Move
     #Function Move reverses the balls direction if it hits a wall and calculates the balls movement for the current frame
     def __move(self, delta):        
-        if self.__position.x + config.BALL_SIZE + self.__direction.x * self.__ball_speed * delta >= 800:
+        if self.__position.x + self.__size + self.__direction.x * self.__ball_speed * delta >= 800:
             self.__direction.x *= -1
         if self.__position.x + self.__direction.x * self.__ball_speed * delta <= 0:
             self.__direction.x *= -1
