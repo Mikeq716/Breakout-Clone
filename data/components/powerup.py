@@ -15,7 +15,7 @@ class Powerup:
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
         if random.randint(1, 10) == 1:
-            pu = random.randint(1, 9)
+            pu = random.randint(1, 10)
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
@@ -195,6 +195,22 @@ class HideBricks(Powerup):
             config.HIDE_BRICKS = False
             self.delete(activated_list)
 
+
+class RapidBall(Powerup):
+    #Function Activate
+    #Function Activate for the RapidBall powerup calls the activate_rapid_ball function of the ball
+    def activate(self, paddle, ball, scorecard):
+        ball.activate_rapid_ball()
+        self.activated = True
+
+    #Function Update
+    #Function Update for the RapidBall powerup calls the deactivate_rapid_ball function of the ball after 10 seconds and then deletes the powerup from the activated list
+    def update(self, activated_list, paddle, ball, scorecard, delta):
+        self.timer += delta
+        if self.timer >= 10000:
+            ball.deactivate_rapid_ball()
+            self.delete(activated_list)
+
    
 POWERUPS = {1 : HealthPowerup, 
             2 : IncreasePaddleSize, 
@@ -204,7 +220,8 @@ POWERUPS = {1 : HealthPowerup,
             6 : IncreaseBallSize,
             7 : NuclearBall,
             8 : HealthDecrease,
-            9 : HideBricks
+            9 : HideBricks,
+            10 : RapidBall
 }
 
 PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
@@ -215,6 +232,7 @@ PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
             6 : config.POWERUP_IMGS['powerup_increase_ball_size_img'],
             7 : config.POWERUP_IMGS['powerup_nuclear_ball_img'],
             8 : config.POWERUP_IMGS['powerup_health_decrease_img'],
-            9 : config.POWERUP_IMGS['powerup_hide_bricks_img']
+            9 : config.POWERUP_IMGS['powerup_hide_bricks_img'],
+            10 : config.POWERUP_IMGS['powerup_rapid_ball_img']
 }
             
