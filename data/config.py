@@ -22,6 +22,7 @@ PADDLE_Y = SCREEN_HEIGHT - 50
 
 #Create the font used for the scorecard
 font = pygame.font.SysFont('georgia.ttf', 26)
+TEXT_COLOR = (191, 191, 191)
 
 #Load various game images
 PADDLE_IMGS = { 'paddle_smallest_img' : pygame.image.load(os.path.join('resources/images/paddles/', 'paddle_smallest.png')).convert_alpha(),
