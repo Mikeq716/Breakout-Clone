@@ -22,7 +22,9 @@ class Ball:
         self.__check_paddle_collision(paddle, delta)
         self.__inactive_ball(paddle, delta)
         self.missed_ball(paddle, delta, scorecard)
-
+ 
+    #Function Draw
+    #Function Draw blits the ball to the screen
     def draw(self, surface):
         surface.blit(self.__img, self.__position)
 
@@ -57,22 +59,34 @@ class Ball:
     def reset_speed(self):
         self.__ball_speed = 0.5
 
+    #Function Increase Size
+    #Function Increase Size changes the image of the ball to the large ball
     def increase_size(self):
         self.__img = config.BALL_IMGS['large_ball_img']
 
+    #Function Decrease Size
+    #Function Decrease Size resets the ball to its normal image and size
     def decrease_size(self):
         self.__img = config.BALL_IMGS['ball_img']
 
+    #Function Activate Nuclear
+    #Function Activate Nuclear activates the nuclear powerup
     def activate_nuclear(self):
         self.__nuclear = True
 
+    #Function Deactivate Nuclear 
+    #Function Deactivate Nuclear deactivates the nuclear powerup
     def deactivate_nuclear(self):
         self.__nuclear = False
 
+    #Function Activate Rapid Ball
+    #Function Activate Rapid Ball activates the rapid ball powerup
     def activate_rapid_ball(self):
         self.__rapidball = True
         self.__ball_speed = 2.5
 
+    #Function Deactivate Rapid Ball
+    #Function Deactivate Rapid Ball deactivates the rapid ball powerup
     def deactivate_rapid_ball(self):
         self.__rapidball = False
         self.__ball_speed = 0.5

@@ -40,9 +40,13 @@ class Scorecard:
     def add_life(self):
         self.lives_left += 1
 
+    #Function Remove Life
+    #Function Remove Life removes 1 life from the current lives left
     def remove_life(self):
         self.lives_left -= 1
 
+    #Function Update Scorecard
+    #Function Update Scorecard draws lives, current score, and current level each frame
     def update_scorecard(self, level, surface):
         self.draw_lives(surface)
         self.draw_score(surface)

@@ -31,9 +31,10 @@ class Paddle:
         self.__current_img = CURRENT_IMG[self.__current_size]
         self.__width = self.__current_img.get_width()
 
+    #Function Draw
+    #Function Draw blits the paddle onto the screen
     def draw(self, surface):
         surface.blit(self.__current_img, [self.__x, self.__y])
-
 
     #Function Increase Paddle Size
     #Function Increase Paddle Size increases the paddles size if its not at its maximum
@@ -66,6 +67,7 @@ class Paddle:
             self.__x = 0
         elif self.__x >= config.SCREEN_WIDTH - self.__width:
             self.__x = config.SCREEN_WIDTH - self.__width
+            
 
 CURRENT_IMG = { 1 : config.PADDLE_IMGS['paddle_smallest_img'],
                 2 : config.PADDLE_IMGS['paddle_smaller_img'],
