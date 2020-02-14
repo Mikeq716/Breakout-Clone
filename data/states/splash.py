@@ -16,7 +16,7 @@ class Splash(state_machine.State):
             self.done = True
 
     def draw(self, surface):
-        surface.blit(config.SPLASH_IMGS['splash_img'], (0, 0))
+        surface.blit(config.BG_IMGS['splash_img'], (0, 0))
 
     def get_event(self, event):
         if event.type == pygame.QUIT:

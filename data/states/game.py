@@ -16,6 +16,7 @@ class Game:
         self.rows = []
         self.spawned_powerups = []
         self.activated_powerups = []
+        self.brick_count = 0
 
     def startup(self):
         pygame.event.set_grab(True)
@@ -27,19 +28,27 @@ class Game:
     def update(self):
         self.delta = self.clock.tick()
         self.paddle.update(self.delta)
-        self.ball.update(self.ball, self.paddle, self.delta, self.scorecard)
+        self.ball.update(self.ball, self.delta, self.scorecard)
 
         if self.scorecard.lives_left == 0:
             self.new_game()
         
+        if self.ball.missed_ball(self.delta) == True: 
+            self.clear_powerups()
+            self.scorecard.remove_life()
+            self.ball.reset_ball()
+            self.ball.decrease_speed()
+
         for row in self.rows:
             if len(row) == 0:
                 self.rows.remove(row)
             for brick in row:
                 if self.ball.check_brick_collision(self.ball, brick, self.delta) == True: 
                     self.scorecard.add_score(brick.get_value)
-                    Powerup.spawn_powerup(self.spawned_powerups, brick.get_pos)
-                    brick.hit(row)
+                    if brick.locked == False:
+                        Powerup.spawn_powerup(self.spawned_powerups, brick.get_pos)
+                        row.remove(brick)
+                        config.CURRENT_COUNT -= 1
 
         for powerup in self.spawned_powerups:
             powerup.update_spawned_powerups(self.delta, self.spawned_powerups, self.activated_powerups, self.paddle)
@@ -50,17 +59,16 @@ class Game:
             if powerup.activated == True:
                 powerup.update(self.activated_powerups, self.paddle, self.ball, self.scorecard, self.delta)
         
-        if len(self.rows) == 0:
+        if config.CURRENT_COUNT == 0:
+            self.clear_powerups()
             Level.new_level(self.current_level, self.rows)
-            self.ball.reset_ball(self.paddle)
+            self.ball.reset_ball()
             self.ball.increase_speed()
             self.paddle.reset_paddle_size()
-            self.spawned_powerups = []
-            self.activated_powerups = []
             self.current_level += 1
 
     def draw(self, surface):
-        surface.fill((0, 0, 0))
+        surface.blit(config.BG_IMGS['background_img'], (0, 0))
         self.paddle.draw(surface)
         self.ball.draw(surface)
         self.scorecard.update_scorecard(self.current_level, surface)
@@ -75,12 +83,16 @@ class Game:
     def get_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                self.ball.reset_ball(self.paddle)
+                self.ball.reset_ball()
                 self.done = True
             if event.key == pygame.K_SPACE:
                 self.ball.activate_ball()
 
     def new_game(self):
+        self.clear_powerups()
+        self.spawned_powerups.clear()
+        self.activated_powerups.clear()
+        config.CURRENT_COUNT = 0
         self.new = False
         self.rows.clear()
         self.current_level = 0
@@ -88,4 +100,10 @@ class Game:
         self.scorecard.current_score = 0
         self.paddle.reset_paddle_size()
         self.ball.reset_speed()
-        
+
+    def clear_powerups(self):
+        for powerup in self.activated_powerups:
+            powerup.deactivate(self.paddle, self.ball)
+        self.activated_powerups.clear()
+        self.spawned_powerups.clear()
+

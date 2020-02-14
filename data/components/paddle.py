@@ -62,7 +62,7 @@ class Paddle:
     #Function Move calculates the paddles new position based on mouse movement for the current frame
     def __move(self):
         paddle_move = pygame.mouse.get_rel()
-        self.__x += paddle_move[0]
+        self.__x += paddle_move[0] * 0.5
         if self.__x < 0:
             self.__x = 0
         elif self.__x >= config.SCREEN_WIDTH - self.__width:

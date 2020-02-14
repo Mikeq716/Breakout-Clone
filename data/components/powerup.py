@@ -7,6 +7,7 @@ class Powerup:
     def __init__(self, pos, img):
         self.position = pygame.math.Vector2(pos)
         self.velocity = pygame.math.Vector2(random.randint(-1, 1), 2).normalize()
+        self.width = config.POWERUP_IMGS['powerup_health_img'].get_width()
         self.img = img
         self.timer = 0
         self.activated = False
@@ -33,7 +34,7 @@ class Powerup:
         paddle_pos = paddle.get_pos
         paddle_width = paddle.get_width
         if self.position.y + config.POWERUP_IMGS['powerup_health_img'].get_height() >= config.PADDLE_Y and self.position.y <= config.PADDLE_Y:
-            if self.position.x >= paddle_pos and self.position.x + config.POWERUP_IMGS['powerup_health_img'].get_width() <= paddle_pos + paddle_width:
+            if self.position.x + self.width > paddle_pos and self.position.x < paddle_pos + paddle_width:
                activated_list.append(self) 
                self.delete(spawned_list)
     
@@ -91,13 +92,14 @@ class IncreasePaddleSize(Powerup):
         paddle.increase_paddle_size()
         self.activated = True
 
-    #Function Update
-    #Function Update for the IncreasePaddleSize powerup resets the paddle size after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            paddle.reset_paddle_size()
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        paddle.reset_paddle_size()
 
 
 class DecreasePaddleSize(Powerup):
@@ -107,13 +109,14 @@ class DecreasePaddleSize(Powerup):
         paddle.decrease_paddle_size()
         self.activated = True
 
-    #Function Update
-    #Function Update for the DecreasePaddleSize powerup resets the paddle size after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            paddle.reset_paddle_size()
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        paddle.reset_paddle_size()
 
 
 class IncreaseBallSpeed(Powerup):
@@ -123,13 +126,14 @@ class IncreaseBallSpeed(Powerup):
         ball.increase_speed()
         self.activated = True
 
-    #Function Update
-    #Function Update for the IncreaseBallSpeed powerup resets the ball speed after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            ball.decrease_speed()
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        ball.decrease_speed()
 
 
 class DecreaseBallSpeed(Powerup):
@@ -139,13 +143,14 @@ class DecreaseBallSpeed(Powerup):
         ball.decrease_speed()
         self.activated = True
 
-    #Function Update
-    #Function Update for the DecreaseBallSpeed powerup resets the ball speed after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            ball.increase_speed()
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        ball.increase_speed()        
 
 
 class IncreaseBallSize(Powerup):
@@ -155,13 +160,14 @@ class IncreaseBallSize(Powerup):
         ball.increase_size()
         self.activated = True
 
-    #Function Update
-    #Function Update for the IncreaseBallSize powerup resets the ball size after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            ball.decrease_size()
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        ball.decrease_size()
 
 
 class NuclearBall(Powerup):
@@ -171,13 +177,14 @@ class NuclearBall(Powerup):
         ball.activate_nuclear()
         self.activated = True
 
-    #Function Update
-    #Function Update for the NuclearBall powerup resets the ball to normal after 5 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            ball.deactivate_nuclear()
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        ball.deactivate_nuclear()
 
 
 class HideBricks(Powerup):
@@ -187,13 +194,14 @@ class HideBricks(Powerup):
         config.HIDE_BRICKS = True
         self.activated = True
 
-    #Function Update
-    #Function Update for the HideBricks powerup sets the HIDE_BRICKS variable in config back to false after 10 seconds and deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            config.HIDE_BRICKS = False
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        config.HIDE_BRICKS = False
 
 
 class RapidBall(Powerup):
@@ -203,13 +211,14 @@ class RapidBall(Powerup):
         ball.activate_rapid_ball()
         self.activated = True
 
-    #Function Update
-    #Function Update for the RapidBall powerup calls the deactivate_rapid_ball function of the ball after 10 seconds and then deletes the powerup from the activated list
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 10000:
-            ball.deactivate_rapid_ball()
+        if self.timer >= 3000:
+            self.deactivate(paddle, ball)
             self.delete(activated_list)
+
+    def deactivate(self, paddle, ball):
+        ball.deactivate_rapid_ball()
 
    
 POWERUPS = {1 : HealthPowerup, 

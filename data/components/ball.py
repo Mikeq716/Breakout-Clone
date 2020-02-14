@@ -13,16 +13,17 @@ class Ball:
         self.__ball_speed = 0.5
         self.__nuclear = False
         self.__rapidball = False
+        self.__paddle = paddle
 
     #Update Function
     #Update function calculates new position and draws ball, checks for paddle collision and checks if ball is active
-    def update(self, ball, paddle, delta, scorecard):
+    def update(self, ball, delta, scorecard):
         self.__size = self.__img.get_width()
         self.__move(delta)
-        self.__check_paddle_collision(paddle, delta)
-        self.__inactive_ball(paddle, delta)
-        self.missed_ball(paddle, delta, scorecard)
- 
+        self.__check_paddle_collision(delta)
+        if self.__ball_active == False:
+            self.__inactive_ball(delta)
+
     #Function Draw
     #Function Draw blits the ball to the screen
     def draw(self, surface):
@@ -35,9 +36,9 @@ class Ball:
 
     #Reset Ball Funtion
     #Reset Ball Function resets the ball to the middle of the paddle, and resets its direction vector to straight up
-    def reset_ball(self, paddle):
-        paddle_pos = paddle.get_pos
-        paddle_width = paddle.get_width
+    def reset_ball(self):
+        paddle_pos = self.__paddle.get_pos
+        paddle_width = self.__paddle.get_width
         self.__ball_active = False
         self.__direction.x = 0
         self.__direction.y = 1
@@ -90,7 +91,7 @@ class Ball:
     def deactivate_rapid_ball(self):
         self.__rapidball = False
         self.__ball_speed = 0.5
-        self.reset_ball
+        self.reset_ball()
 
     #Check Brick Collision Function
     #Check Brick Collision Function checks if ball has collided with brick and if it has it reverses balls direction on the correct axis and returns true
@@ -121,30 +122,27 @@ class Ball:
 
     #Missed Ball Function
     #Missed Ball Function will check whether the ball has gone below the paddle and if so reset it, decrease its speed, and remove 1 life from lives left
-    def missed_ball(self, paddle, delta, scorecard):
+    def missed_ball(self, delta):
         if self.__position.y > config.PADDLE_Y - self.__size + (self.__ball_speed * delta):
             if self.__rapidball == True:
                 self.__direction.y *= -1
             else:
-                scorecard.remove_life()
-                self.reset_ball(paddle)
-                self.decrease_speed()
+                return True
 
     #Inactive Ball Function
     #Inactive Ball Function checks whether the __ball_active variable is False, if so it moves the ball to the middle of the paddle each frame
-    def __inactive_ball(self, paddle, delta):
-        paddle_pos = paddle.get_pos
-        paddle_width = paddle.get_width
-        if self.__ball_active == False:
-            self.__position.x = paddle_pos + paddle_width / 2 - self.__size / 2
-            self.__position.y = config.PADDLE_Y - self.__size - 1
+    def __inactive_ball(self, delta):
+        paddle_pos = self.__paddle.get_pos
+        paddle_width = self.__paddle.get_width
+        self.__position.x = paddle_pos + paddle_width / 2 - self.__size / 2
+        self.__position.y = config.PADDLE_Y - self.__size - 1
 
     #Check Paddle Collision Function
     #Check Paddle Collision Function checks if ball has collided with the paddle and returns true if it has
     #Check Paddle Collision Function calculates and sets the balls correct bounce angle depending on where on the paddle the collision happened
-    def __check_paddle_collision(self, paddle, delta):
-        paddle_pos = paddle.get_pos
-        paddle_width = paddle.get_width
+    def __check_paddle_collision(self, delta):
+        paddle_pos = self.__paddle.get_pos
+        paddle_width = self.__paddle.get_width
         check_pos_x = self.__position.x + (self.__size / 2) + self.__direction.x * self.__ball_speed * delta
         check_pos_y = self.__position.y + self.__size + self.__direction.y * self.__ball_speed * delta
         paddle_split_pos = paddle_pos + (paddle_width / 2)
