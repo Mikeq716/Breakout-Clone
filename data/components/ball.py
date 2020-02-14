@@ -84,7 +84,7 @@ class Ball:
     #Function Activate Rapid Ball activates the rapid ball powerup
     def activate_rapid_ball(self):
         self.__rapidball = True
-        self.__ball_speed = 2.5
+        self.__ball_speed = 2
 
     #Function Deactivate Rapid Ball
     #Function Deactivate Rapid Ball deactivates the rapid ball powerup

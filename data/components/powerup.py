@@ -179,7 +179,7 @@ class NuclearBall(Powerup):
 
     def update(self, activated_list, paddle, ball, scorecard, delta):
         self.timer += delta
-        if self.timer >= 10000:
+        if self.timer >= 5000:
             self.deactivate(paddle, ball)
             self.delete(activated_list)
 
