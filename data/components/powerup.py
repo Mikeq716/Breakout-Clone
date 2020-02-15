@@ -2,6 +2,7 @@ import pygame
 import random
 
 from .. import config
+from .ball import Ball
 
 class Powerup:
     def __init__(self, pos, img):
@@ -16,7 +17,7 @@ class Powerup:
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
         if random.randint(1, 10) == 1:
-            pu = random.randint(1, 10)
+            pu = random.randint(1, 12)
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
@@ -61,164 +62,196 @@ class Powerup:
 class HealthPowerup(Powerup):
     #Function Activate
     #Function Activate for the Health powerup adds a life to the current lives, and then deletes itself
-    def activate(self, paddle, ball, scorecard):
+    def activate(self, paddle, ball_list, scorecard):
         scorecard.add_life()
         self.activated = True
 
     #Function Update
     #Function Update for the Health powerup simply deletes it from the activated list
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.delete(activated_list)
 
 
 class HealthDecrease(Powerup):
     #Function Activate
     #Function Activate removes a life from the current lives unless there is only 1 life left
-    def activate(self, paddle, ball, scorecard):
+    def activate(self, paddle, ball_list, scorecard):
         if scorecard.lives_left > 1:
             scorecard.remove_life()
         self.activated = True
 
     #Function Update
     #Function Update for the HealthDecrease powerup simply deletes it from the activated list
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.delete(activated_list)
 
 
 class IncreasePaddleSize(Powerup):
     #Function Activate
     #Function Activate for the IncreasePaddleSize powerup increases the paddles size if its not at maximum and then deletes itself
-    def activate(self, paddle, ball, scorecard):
+    def activate(self, paddle, ball_list, scorecard):
         paddle.increase_paddle_size()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
+    def deactivate(self, paddle, ball_list):
         paddle.reset_paddle_size()
 
 
 class DecreasePaddleSize(Powerup):
     #Function Activate
     #Function Activate for the DecreasePaddleSize powerup decreases the paddles size if its not at minimum and then deletes itself
-    def activate(self, paddle, ball, scorecard):
+    def activate(self, paddle, ball_list, scorecard):
         paddle.decrease_paddle_size()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
+    def deactivate(self, paddle, ball_list):
         paddle.reset_paddle_size()
 
 
 class IncreaseBallSpeed(Powerup):
     #Function Activate
     #Function Activate for the IncreaseBallSpeed powerup increases the balls speed
-    def activate(self, paddle, ball, scorecard):
-        ball.increase_speed()
+    def activate(self, paddle, ball_list, scorecard):
+        ball_list[0].increase_speed()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
-        ball.decrease_speed()
+    def deactivate(self, paddle, ball_list):
+        ball_list[0].decrease_speed()
 
 
 class DecreaseBallSpeed(Powerup):
     #Function Activate
     #Function Activate for the DecreaseBallSpeed powerup decreases the balls speed
-    def activate(self, paddle, ball, scorecard):
-        ball.decrease_speed()
+    def activate(self, paddle, ball_list, scorecard):
+        ball_list[0].decrease_speed()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
-        ball.increase_speed()        
+    def deactivate(self, paddle, ball_list):
+        ball_list[0].increase_speed()        
 
 
 class IncreaseBallSize(Powerup):
     #Function Activate
-    #Function Activate for the IncreaseBallSize powerup increases the size of the ball
-    def activate(self, paddle, ball, scorecard):
-        ball.increase_size()
+    #Function Activate for the IncreaseBallSize powerup increases the size of the ball_list
+    def activate(self, paddle, ball_list, scorecard):
+        ball_list[0].increase_size()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
-        ball.decrease_size()
+    def deactivate(self, paddle, ball_list):
+        ball_list[0].decrease_size()
 
 
 class NuclearBall(Powerup):
     #Function Activate
-    #Function Activate for the NuclearBall powerup makes the ball continue straight through bricks it has destroyed
-    def activate(self, paddle, ball, scorecard):
-        ball.activate_nuclear()
+    #Function Activate for the NuclearBall powerup makes the ball_list continue straight through bricks it has destroyed
+    def activate(self, paddle, ball_list, scorecard):
+        ball_list[0].activate_nuclear()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 5000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
-        ball.deactivate_nuclear()
+    def deactivate(self, paddle, ball_list):
+        ball_list[0].deactivate_nuclear()
 
 
 class HideBricks(Powerup):
     #Function Activate
     #Function Activate for the HideBricks powerup sets the HIDE_BRICKS variable in config to true
-    def activate(self, paddle, ball, scorecard):
+    def activate(self, paddle, ball_list, scorecard):
         config.HIDE_BRICKS = True
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 10000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
+    def deactivate(self, paddle, ball_list):
         config.HIDE_BRICKS = False
 
 
 class RapidBall(Powerup):
     #Function Activate
-    #Function Activate for the RapidBall powerup calls the activate_rapid_ball function of the ball
-    def activate(self, paddle, ball, scorecard):
-        ball.activate_rapid_ball()
+    #Function Activate for the RapidBall powerup calls the activate_rapid_ball function of the ball_list
+    def activate(self, paddle, ball_list, scorecard):
+        ball_list[0].activate_rapid_ball()
         self.activated = True
 
-    def update(self, activated_list, paddle, ball, scorecard, delta):
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
         self.timer += delta
         if self.timer >= 3000:
-            self.deactivate(paddle, ball)
+            self.deactivate(paddle, ball_list)
             self.delete(activated_list)
 
-    def deactivate(self, paddle, ball):
-        ball.deactivate_rapid_ball()
+    def deactivate(self, paddle, ball_list):
+        ball_list[0].deactivate_rapid_ball()
+
+
+class DoubleBall(Powerup):
+    #Function Activate
+    #Function Activate for the DoubleBall class will spawn a 2nd ball
+    def activate(self, paddle, ball_list, scorecard):
+        Ball.spawn_ball(ball_list, paddle)
+        self.activated = True
+
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
+        pass
+
+    def deactivate(self, paddle, ball_list):
+        if len(ball_list) > 1:
+            ball_list.remove(ball_list[1])
+
+
+class MultiBall(Powerup):
+    #Function Activate
+    #Function Activate will spawn 5 balls
+    def activate(self, paddle, ball_list, scorecard):
+        for _ in range(5):
+            Ball.spawn_ball(ball_list, paddle)
+        self.activated = True
+
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
+        pass
+
+    def deactivate(self, paddle, ball_list):
+        if len(ball_list) > 1:
+            for i in range(len(ball_list) - 1):
+                ball_list.pop()
 
    
 POWERUPS = {1 : HealthPowerup, 
@@ -230,7 +263,9 @@ POWERUPS = {1 : HealthPowerup,
             7 : NuclearBall,
             8 : HealthDecrease,
             9 : HideBricks,
-            10 : RapidBall
+            10 : RapidBall,
+            11 : DoubleBall,
+            12 : MultiBall
 }
 
 PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
@@ -242,6 +277,8 @@ PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
             7 : config.POWERUP_IMGS['powerup_nuclear_ball_img'],
             8 : config.POWERUP_IMGS['powerup_health_decrease_img'],
             9 : config.POWERUP_IMGS['powerup_hide_bricks_img'],
-            10 : config.POWERUP_IMGS['powerup_rapid_ball_img']
+            10 : config.POWERUP_IMGS['powerup_rapid_ball_img'],
+            11 : config.POWERUP_IMGS['powerup_double_ball_img'],
+            12 : config.POWERUP_IMGS['powerup_multi_ball_img']
 }
             

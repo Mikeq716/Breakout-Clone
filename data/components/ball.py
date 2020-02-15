@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from .. import config
 
@@ -8,12 +9,20 @@ class Ball:
         self.__img = config.BALL_IMGS['ball_img']
         self.__size = self.__img.get_width()
         self.__position = pygame.math.Vector2(paddle.get_pos + paddle.get_width / 2 + self.__size / 2)
-        self.__direction = pygame.math.Vector2(0, -1).normalize()
+        self.__direction = pygame.math.Vector2(random.uniform(-0.5, 0.5), -1).normalize()
         self.__ball_active = False
         self.__ball_speed = 0.5
         self.__nuclear = False
         self.__rapidball = False
         self.__paddle = paddle
+
+    #Function Spawn_Ball
+    #Function Spawn_Ball will spawn a ball and add it to the list of balls
+    def spawn_ball(ball_list, paddle):
+        ball = Ball(paddle)
+        if len(ball_list) > 0:
+            ball.__ball_active = True
+        ball_list.append(ball)
 
     #Update Function
     #Update function calculates new position and draws ball, checks for paddle collision and checks if ball is active

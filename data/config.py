@@ -13,7 +13,7 @@ CAPTION = "Breakout"
 SCREEN_RECT = pygame.Rect((0, 0), SCREEN_SIZE)
 
 pygame.display.set_caption(CAPTION)
-SCREEN = pygame.display.set_mode(SCREEN_SIZE)
+SCREEN = pygame.display.set_mode(SCREEN_SIZE, 0, 32)
 
 SCREEN_WIDTH = SCREEN.get_width()
 SCREEN_HEIGHT = SCREEN.get_height()
@@ -57,7 +57,9 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
                 'powerup_nuclear_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'nuclear_ball.png')).convert_alpha(),
                 'powerup_health_decrease_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'health_decrease.png')).convert_alpha(),
                 'powerup_hide_bricks_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'hide_bricks.png')).convert_alpha(),
-                'powerup_rapid_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'rapid_ball.png')).convert_alpha()
+                'powerup_rapid_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'rapid_ball.png')).convert_alpha(),
+                'powerup_double_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'double_ball.png')).convert_alpha(),
+                'powerup_multi_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'multi_ball.png')).convert_alpha()
 }
 MENU_IMGS = {   'new_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'new_game.png')).convert_alpha(),
                 'new_game_selected_img' : pygame.image.load(os.path.join('resources/images/menu/', 'new_game_selected.png')).convert_alpha(),
