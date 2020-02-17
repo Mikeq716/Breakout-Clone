@@ -16,7 +16,8 @@ class Game:
         Ball.spawn_ball(self.ball_list, self.paddle)
         self.scorecard = scorecard.Scorecard()
         self.current_level = 0
-        self.rows = []
+        self.bricks = []
+        self.moving_bricks = []
         self.spawned_powerups = []
         self.activated_powerups = []
 
@@ -60,7 +61,7 @@ class Game:
         for ball in self.ball_list:
             ball.draw(surface)  
         
-        for row in self.rows:
+        for row in self.bricks:
             for brick in row:
                 brick.draw(surface)  
 

@@ -10,7 +10,7 @@ class GameFunctions:
     def new_game(game):
         config.CURRENT_COUNT = 0
         game.new = False
-        game.rows.clear()
+        game.bricks.clear()
         game.current_level = 0
         game.scorecard.lives_left = 3
         game.scorecard.current_score = 0
@@ -77,10 +77,11 @@ class GameFunctions:
     #Update Level Function
     #Update Level Function will check if any bricks were hit, and if they were it will remove them
     def update_level(game):
-        for row in game.rows:
+        for row in game.bricks:
             if len(row) == 0:
-                game.rows.remove(row)
+                game.bricks.remove(row)
             for brick in row:
+                brick.move(game.delta)
                 for ball in game.ball_list:
                     if GameFunctions.check_brick_collision(ball, brick, game.delta) == True: 
                         game.scorecard.add_score(brick.get_value)
@@ -93,7 +94,7 @@ class GameFunctions:
      #Next Level Function
     #Next Level Function loads the next level
     def next_level(game):
-        Level.new_level(game.current_level, game.rows)
+        Level.new_level(game.current_level, game.bricks)
         game.current_level += 1
         game.paddle.reset_paddle_size()
         GameFunctions.clear_powerups(game)

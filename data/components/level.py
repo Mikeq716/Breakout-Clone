@@ -30,10 +30,13 @@ class Level:
             row = obj.join('')
             row = obj.split(',')
             for img in row:
+                moving = False
                 if int(img) == 0:
                     x += 54
                     continue
-                new_row.append(Brick(x, y, IMAGES[int(img)], BRICK_VALUES[int(img)], LOCKED[int(img)]))
+                if int(img) == 14:
+                    moving = True
+                new_row.append(Brick(x, y, IMAGES[int(img)], BRICK_VALUES[int(img)], LOCKED[int(img)], moving))
                 x += 54
                 if int(img) < 8:
                     Level.increase_count()
