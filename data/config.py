@@ -59,7 +59,8 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
                 'powerup_hide_bricks_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'hide_bricks.png')).convert_alpha(),
                 'powerup_rapid_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'rapid_ball.png')).convert_alpha(),
                 'powerup_double_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'double_ball.png')).convert_alpha(),
-                'powerup_multi_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'multi_ball.png')).convert_alpha()
+                'powerup_multi_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'multi_ball.png')).convert_alpha(),
+                'powerup_sticky_paddle_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'sticky_paddle.png')).convert_alpha()
 }
 MENU_IMGS = {   'new_game_img' : pygame.image.load(os.path.join('resources/images/menu/', 'new_game.png')).convert_alpha(),
                 'new_game_selected_img' : pygame.image.load(os.path.join('resources/images/menu/', 'new_game_selected.png')).convert_alpha(),

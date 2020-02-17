@@ -17,7 +17,7 @@ class Powerup:
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
         if random.randint(1, 10) == 1:
-            pu = random.randint(1, 12)
+            pu = random.randint(1, 13)
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
@@ -253,6 +253,23 @@ class MultiBall(Powerup):
             for i in range(len(ball_list) - 1):
                 ball_list.pop()
 
+
+class StickyPaddle(Powerup):
+    #Function Activate
+    #Function Activate will make the ball stick to the paddle instead of bouncing
+    def activate(self, paddle, ball_list, scorecard):
+        ball_list[0].activate_sticky_paddle()
+        self.activated = True
+
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
+        self.timer += delta
+        if self.timer >= 10000:
+            self.deactivate(paddle, ball_list)
+            self.delete(activated_list)
+
+    def deactivate(self, paddle, ball_list):
+            ball_list[0].deactivate_sticky_paddle()
+
    
 POWERUPS = {1 : HealthPowerup, 
             2 : IncreasePaddleSize, 
@@ -265,7 +282,8 @@ POWERUPS = {1 : HealthPowerup,
             9 : HideBricks,
             10 : RapidBall,
             11 : DoubleBall,
-            12 : MultiBall
+            12 : MultiBall,
+            13 : StickyPaddle
 }
 
 PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
@@ -279,6 +297,7 @@ PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
             9 : config.POWERUP_IMGS['powerup_hide_bricks_img'],
             10 : config.POWERUP_IMGS['powerup_rapid_ball_img'],
             11 : config.POWERUP_IMGS['powerup_double_ball_img'],
-            12 : config.POWERUP_IMGS['powerup_multi_ball_img']
+            12 : config.POWERUP_IMGS['powerup_multi_ball_img'],
+            13 : config.POWERUP_IMGS['powerup_sticky_paddle_img']
 }
             
