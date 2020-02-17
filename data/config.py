@@ -31,6 +31,7 @@ PADDLE_IMGS = { 'paddle_smallest_img' : pygame.image.load(os.path.join('resource
                 'paddle_large_img' : pygame.image.load(os.path.join('resources/images/paddles/', 'paddle_large.png')).convert_alpha()
 }
 BALL_IMGS = {   'ball_img' : pygame.image.load(os.path.join('resources/images/balls/', 'ball.png')).convert_alpha(),
+                'small_ball_img' : pygame.image.load(os.path.join('resources/images/balls/', 'small_ball.png')).convert_alpha(),
                 'large_ball_img' : pygame.image.load(os.path.join('resources/images/balls/', 'large_ball.png')).convert_alpha()
 }
 BRICK_IMGS = {  'brick_blue_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_blue.png')).convert_alpha(),
@@ -54,6 +55,7 @@ POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources
                 'powerup_increase_ball_speed_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'increase_ball_speed.png')).convert_alpha(),
                 'powerup_decrease_ball_speed_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'decrease_ball_speed.png')).convert_alpha(),
                 'powerup_increase_ball_size_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'increase_ball_size.png')).convert_alpha(),
+                'powerup_decrease_ball_size_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'decrease_ball_size.png')).convert_alpha(),
                 'powerup_nuclear_ball_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'nuclear_ball.png')).convert_alpha(),
                 'powerup_health_decrease_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'health_decrease.png')).convert_alpha(),
                 'powerup_hide_bricks_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'hide_bricks.png')).convert_alpha(),

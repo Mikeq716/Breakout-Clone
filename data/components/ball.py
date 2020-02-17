@@ -106,10 +106,15 @@ class Ball:
     def increase_size(self):
         self.img = config.BALL_IMGS['large_ball_img']
 
-    #Function Decrease Size
-    #Function Decrease Size resets the ball to its normal image and size
-    def decrease_size(self):
+    #Function Reset Size
+    #Function Reset Size resets the ball to its normal image and size
+    def reset_size(self):
         self.img = config.BALL_IMGS['ball_img']
+
+    #Function Decrease Size
+    #Function Decrease Size sets the ball to the small ball image and size
+    def decrease_size(self):
+        self.img = config.BALL_IMGS['small_ball_img']
 
     #Function Activate Nuclear
     #Function Activate Nuclear activates the nuclear powerup

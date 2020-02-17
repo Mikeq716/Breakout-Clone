@@ -41,6 +41,7 @@ class Game:
                     ball.reset_ball()
                     ball.decrease_speed()
                     self.scorecard.remove_life()
+                    GameFunctions.clear_powerups(self)
 
         GameFunctions.update_level(self)
         GameFunctions.update_powerups(self)
@@ -53,14 +54,16 @@ class Game:
 
     def draw(self, surface):
         surface.blit(config.BG_IMGS['background_img'], (0, 0))
-        
         self.paddle.draw(surface)
+        self.scorecard.update_scorecard(self.current_level, surface)
+
         for ball in self.ball_list:
             ball.draw(surface)  
-        self.scorecard.update_scorecard(self.current_level, surface)
+        
         for row in self.rows:
             for brick in row:
                 brick.draw(surface)  
+
         for powerup in self.spawned_powerups:
             powerup.draw(surface)
 

@@ -8,9 +8,6 @@ class GameFunctions:
     #New Game Function
     #New Game Function resets everything and starts a new game
     def new_game(game):
-        GameFunctions.clear_powerups(game)
-        game.spawned_powerups.clear()
-        game.activated_powerups.clear()
         config.CURRENT_COUNT = 0
         game.new = False
         game.rows.clear()
@@ -18,19 +15,9 @@ class GameFunctions:
         game.scorecard.lives_left = 3
         game.scorecard.current_score = 0
         game.paddle.reset_paddle_size()
-        for ball in game.ball_list:
-            ball.reset_ball()
-
-    #Next Level Function
-    #Next Level Function loads the next level
-    def next_level(game):
         GameFunctions.clear_powerups(game)
-        Level.new_level(game.current_level, game.rows)
-        game.paddle.reset_paddle_size()
-        game.current_level += 1
         for ball in game.ball_list:
             ball.reset_ball()
-            ball.increase_speed()
 
     #Check Brick Collision Function
     #Check Brick Collision Function checks if ball has collided with brick and if it has it reverses balls direction on the correct axis and returns true
@@ -70,12 +57,12 @@ class GameFunctions:
         paddle_pos = paddle.get_pos
         paddle_width = paddle.get_width
         paddle_split_pos = paddle_pos + (paddle_width / 2)
-        check_pos_x = ball.position.x + (ball.size / 2) + ball.direction.x * ball.ball_speed * delta
+        check_pos_x = ball.position.x + ball.direction.x * ball.ball_speed * delta
         check_pos_y = ball.position.y + ball.size + ball.direction.y * ball.ball_speed * delta
         y_vel = ball.direction.y
 
         if check_pos_y >= config.PADDLE_Y:
-            if check_pos_x >= paddle_pos and check_pos_x <= paddle_pos + paddle_width:
+            if check_pos_x <= paddle_pos + paddle_width and check_pos_x + ball.size >= paddle_pos:
                 if ball.sticky_paddle == True:
                     ball.deactivate_ball(delta)
                 if check_pos_x < paddle_split_pos:
@@ -102,6 +89,17 @@ class GameFunctions:
                             row.remove(brick)
                             config.CURRENT_COUNT -= 1
                         break
+
+     #Next Level Function
+    #Next Level Function loads the next level
+    def next_level(game):
+        Level.new_level(game.current_level, game.rows)
+        game.current_level += 1
+        game.paddle.reset_paddle_size()
+        GameFunctions.clear_powerups(game)
+        for ball in game.ball_list:
+            ball.reset_ball()
+            ball.increase_speed()
 
     #Update Powerups Function
     #Update Powerups Function will update both spawned an activated powerups

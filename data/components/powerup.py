@@ -16,8 +16,8 @@ class Powerup:
     #Function Spawn Powerup
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
-        if random.randint(1, 10) == 1:
-            pu = random.randint(1, 13)
+        if random.randint(1, 7) == 1:
+            pu = random.randint(1, 14)
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
@@ -156,7 +156,7 @@ class DecreaseBallSpeed(Powerup):
 
 class IncreaseBallSize(Powerup):
     #Function Activate
-    #Function Activate for the IncreaseBallSize powerup increases the size of the ball_list
+    #Function Activate for the IncreaseBallSize powerup increases the size of the ball
     def activate(self, paddle, ball_list, scorecard):
         ball_list[0].increase_size()
         self.activated = True
@@ -168,7 +168,23 @@ class IncreaseBallSize(Powerup):
             self.delete(activated_list)
 
     def deactivate(self, paddle, ball_list):
+        ball_list[0].reset_size()
+
+class DecreaseBallSize(Powerup):
+    #Function Activate
+    #Function Activate for the DecreaseBallSize powerup decreases the size of the ball
+    def activate(self, paddle, ball_list, scorecard):
         ball_list[0].decrease_size()
+        self.activated = True
+
+    def update(self, activated_list, paddle, ball_list, scorecard, delta):
+        self.timer += delta
+        if self.timer >= 10000:
+            self.deactivate(paddle, ball_list)
+            self.delete(activated_list)
+
+    def deactivate(self, paddle, ball_list):
+        ball_list[0].reset_size()
 
 
 class NuclearBall(Powerup):
@@ -283,7 +299,8 @@ POWERUPS = {1 : HealthPowerup,
             10 : RapidBall,
             11 : DoubleBall,
             12 : MultiBall,
-            13 : StickyPaddle
+            13 : StickyPaddle,
+            14 : DecreaseBallSize
 }
 
 PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
@@ -298,6 +315,7 @@ PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
             10 : config.POWERUP_IMGS['powerup_rapid_ball_img'],
             11 : config.POWERUP_IMGS['powerup_double_ball_img'],
             12 : config.POWERUP_IMGS['powerup_multi_ball_img'],
-            13 : config.POWERUP_IMGS['powerup_sticky_paddle_img']
+            13 : config.POWERUP_IMGS['powerup_sticky_paddle_img'],
+            14 : config.POWERUP_IMGS['powerup_decrease_ball_size_img']
 }
             

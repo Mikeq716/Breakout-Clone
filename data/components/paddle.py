@@ -27,9 +27,19 @@ class Paddle:
     #Function Update
     #Function Update calculates paddles movement, sets the paddles image depending on size, updates its __width variable, and draws it to the screen
     def update(self, delta):
-        self.__move()
         self.__current_img = CURRENT_IMG[self.__current_size]
         self.__width = self.__current_img.get_width()
+        self.__move()
+
+    #Function Move
+    #Function Move calculates the paddles new position based on mouse movement for the current frame
+    def __move(self):
+        paddle_move = pygame.mouse.get_rel()
+        self.__x += paddle_move[0] * 0.5
+        if self.__x < 0:
+            self.__x = 0
+        elif self.__x >= config.SCREEN_WIDTH - self.__width:
+            self.__x = config.SCREEN_WIDTH - self.__width
 
     #Function Draw
     #Function Draw blits the paddle onto the screen
@@ -58,16 +68,6 @@ class Paddle:
         if self.__current_size != 3:
             self.__current_size = 3
 
-    #Function Move
-    #Function Move calculates the paddles new position based on mouse movement for the current frame
-    def __move(self):
-        paddle_move = pygame.mouse.get_rel()
-        self.__x += paddle_move[0] * 0.5
-        if self.__x < 0:
-            self.__x = 0
-        elif self.__x >= config.SCREEN_WIDTH - self.__width:
-            self.__x = config.SCREEN_WIDTH - self.__width
-            
 
 CURRENT_IMG = { 1 : config.PADDLE_IMGS['paddle_smallest_img'],
                 2 : config.PADDLE_IMGS['paddle_smaller_img'],
