@@ -17,7 +17,11 @@ class Powerup:
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
         if random.randint(1, 7) == 1:
-            pu = random.randint(1, 14)
+            pu_pick = random.randint(1, 135)
+            for key, value in POWERUP_CHANCE.items():
+                if value[0] <= pu_pick <= value[1]:
+                    pu = key
+                    break
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
     #Function Update
@@ -302,6 +306,22 @@ POWERUPS = {1 : HealthPowerup,
             13 : StickyPaddle,
             14 : DecreaseBallSize
 }
+
+POWERUP_CHANCE = {  1 : (1, 10),
+                    2 : (6, 15),
+                    3 : (16, 35),
+                    4 : (36, 45),
+                    5 : (31, 45),
+                    6 : (46, 55),
+                    7 : (56, 60),
+                    8 : (61, 80),
+                    9 : (81, 100),
+                    10 : (101, 105),
+                    11 : (106, 110),
+                    12 : (111, 105),
+                    13 : (106, 115),
+                    14 : (116, 135)
+} 
 
 PU_IMG = {  1 : config.POWERUP_IMGS['powerup_health_img'],
             2 : config.POWERUP_IMGS['powerup_increase_paddle_img'], 

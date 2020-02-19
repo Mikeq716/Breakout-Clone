@@ -31,7 +31,7 @@ class Game:
     def update(self):
         self.delta = self.clock.tick()
         self.paddle.update(self.delta)
-        
+
         for ball in self.ball_list:
             GameFunctions.check_paddle_collision(ball, self.paddle, self.delta)
             ball.update(self.paddle, self.delta, self.scorecard)

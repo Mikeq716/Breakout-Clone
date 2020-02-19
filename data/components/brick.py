@@ -33,7 +33,6 @@ class Brick:
                 self.__dir.x *= -1
             if self.__pos.x + config.BRICK_WIDTH + self.__dir.x * self.speed * delta >= 800:
                 self.__dir.x *= -1
-            self.__pos += self.__dir * self.speed * delta
 
     #Function Draw
     #Function Draw draws the brick to the screen

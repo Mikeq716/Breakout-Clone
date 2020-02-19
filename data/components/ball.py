@@ -54,6 +54,7 @@ class Ball:
     #Activate Ball Function sets the balls __ball_active variable to True
     def activate_ball(self):
         self.ball_active = True
+        self.direction = pygame.math.Vector2(0, -1).normalize()
 
     #Deactivate Ball Function
     #Deactivate Ball Function checks whether the __ball_active variable is False, if so it moves the ball to the middle of the paddle each frame
