@@ -1,7 +1,7 @@
 import pygame, os
 
 from .. import config
-from ..components.brick import Brick, BRICK_VALUES
+from ..components.brick import *
 
 class Level:
     #Function New Level
@@ -20,22 +20,28 @@ class Level:
     #Function Load Level
     #Function Load Level loads the level from the text file containing it
     def __load_level(y, Rows, level):
-        config.CURRENT_COUNT = 0
-        row = []
+        config.CURRENT_COUNT = 0   
         with open(os.path.join('resources/levels', Level.__select_level(level))) as level:
             lines = level.readlines()
-        for obj in lines:
+        for line in lines:
             x = 21
             new_row = []
-            row = obj.join('')
-            row = obj.split(',')
-            for img in row:
-                if int(img) == 0:
+            row = line.split(',')
+            for obj in row:
+                brick = obj.split('-')
+                brick[1] = int(brick[1])
+                if (brick[1]) == 0:
                     x += 54
                     continue
-                new_row.append(Brick(x, y, IMAGES[int(img)], BRICK_VALUES[int(img)], LOCKED[int(img)]))
+                if brick[0] == 'R':
+                    value = BRICK_VALUES[brick[1]]
+                    image = brick[1]
+                elif brick[0] == 'L':
+                    value = 0
+                    image = brick[1] + 7
+                new_row.append(BRICK_TYPE[brick[0]](x, y, IMAGES[image], value))
                 x += 54
-                if int(img) < 8:
+                if brick[0] == 'R':
                     Level.increase_count()
             y += 22
             Rows.append(new_row)
@@ -58,22 +64,7 @@ IMAGES = {  1 : config.BRICK_IMGS['brick_blue_img'],
             13 : config.BRICK_IMGS['brick_red_locked_img'],
             14 : config.BRICK_IMGS['brick_yellow_locked_img']
 }
-
-LOCKED = {  1 : False,
-            2 : False,
-            3 : False,
-            4 : False,
-            5 : False,
-            6 : False,
-            7 : False,
-            8 : True,
-            9 : True,
-            10 : True,
-            11 : True,
-            12 : True,
-            13 : True,
-            14 : True
+    
+BRICK_TYPE = {  'R' : Brick,
+                'L' : Locked_Brick
 }
-
-    
-    
