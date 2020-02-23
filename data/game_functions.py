@@ -81,7 +81,6 @@ class GameFunctions:
             if len(row) == 0:
                 game.bricks.remove(row)
             for brick in row:
-                brick.move(game.delta)
                 for ball in game.ball_list:
                     if GameFunctions.check_brick_collision(ball, brick, game.delta) == True: 
                         game.scorecard.add_score(brick.get_value)

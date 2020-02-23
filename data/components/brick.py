@@ -4,13 +4,12 @@ import random
 from .. import config
 
 class Brick:
-    def __init__(self, x, y, img, value, locked, moving):
+    def __init__(self, x, y, img, value, locked):
         self.__pos = pygame.math.Vector2(x,y)
         self.__dir = pygame.math.Vector2(0.5, 0).normalize()
         self.__img = img
         self.__value = value
         self.locked = locked
-        self.moving = moving
         self.speed = 0.5
 
     #Function Get Pos
@@ -24,15 +23,6 @@ class Brick:
     @property
     def get_value(self):
         return self.__value
-
-    #Function Move
-    #Function Move moves brick back and forth across the screen if self.moving is set to True
-    def move(self, delta):
-        if self.moving == True:
-            if self.__pos.x + self.__dir.x * self.speed * delta <= 0:
-                self.__dir.x *= -1
-            if self.__pos.x + config.BRICK_WIDTH + self.__dir.x * self.speed * delta >= 800:
-                self.__dir.x *= -1
 
     #Function Draw
     #Function Draw draws the brick to the screen
