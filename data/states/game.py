@@ -48,6 +48,7 @@ class Game:
         GameFunctions.update_powerups(self)
                         
         if config.CURRENT_COUNT == 0:
+            self.current_level += 1
             GameFunctions.next_level(self)
 
         if self.scorecard.lives_left == 0:

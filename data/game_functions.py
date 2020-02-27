@@ -93,12 +93,12 @@ class GameFunctions:
     #Next Level Function loads the next level
     def next_level(game):
         Level.new_level(game.current_level, game.bricks)
-        game.current_level += 1
         game.paddle.reset_paddle_size()
         GameFunctions.clear_powerups(game)
         for ball in game.ball_list:
             ball.reset_ball()
             ball.increase_speed()
+        
 
     #Update Powerups Function
     #Update Powerups Function will update both spawned an activated powerups
