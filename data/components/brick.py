@@ -9,7 +9,6 @@ class Brick:
         self.__dir = pygame.math.Vector2(0.5, 0).normalize()
         self.__img = img
         self.__value = value
-        self.locked = False
         self.speed = 0.5
 
     #Function Get Pos
@@ -37,7 +36,7 @@ class Locked_Brick(Brick):
         self.__dir = pygame.math.Vector2(0.5, 0).normalize()
         self.__img = img
         self.__value = 0
-        self.locked = True
+        self.locked = False
         self.speed = 0.5   
 
     #Function Get Pos
@@ -59,6 +58,6 @@ class Locked_Brick(Brick):
             surface.blit(self.__img, [self.__pos.x, self.__pos.y])
 
 
-BRICK_VALUES = {1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60, 7: 70}        
+BRICK_VALUES = {'BL': 10, 'GR': 20, 'OR': 30, 'PI': 40, 'PU': 50, 'RE': 60, 'YE': 70}        
 
         

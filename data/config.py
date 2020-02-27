@@ -41,13 +41,6 @@ BRICK_IMGS = {  'brick_blue_img' : pygame.image.load(os.path.join('resources/ima
                 'brick_purple_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_purple.png')).convert_alpha(),
                 'brick_red_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_red.png')).convert_alpha(),
                 'brick_yellow_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_yellow.png')).convert_alpha(),
-                'brick_blue_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_blue_locked.png')).convert_alpha(),
-                'brick_green_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_green_locked.png')).convert_alpha(),
-                'brick_orange_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_orange_locked.png')).convert_alpha(),
-                'brick_pink_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_pink_locked.png')).convert_alpha(),
-                'brick_purple_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_purple_locked.png')).convert_alpha(),
-                'brick_red_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_red_locked.png')).convert_alpha(),
-                'brick_yellow_locked_img' : pygame.image.load(os.path.join('resources/images/bricks/', 'brick_yellow_locked.png')).convert_alpha()
 }
 POWERUP_IMGS = {'powerup_health_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'health.png')).convert_alpha(),
                 'powerup_increase_paddle_img' : pygame.image.load(os.path.join('resources/images/powerups/', 'increase_paddle.png')).convert_alpha(),

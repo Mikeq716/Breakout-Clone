@@ -84,10 +84,9 @@ class GameFunctions:
                 for ball in game.ball_list:
                     if GameFunctions.check_brick_collision(ball, brick, game.delta) == True: 
                         game.scorecard.add_score(brick.get_value)
-                        if brick.locked == False:
-                            Powerup.spawn_powerup(game.spawned_powerups, brick.get_pos)
-                            row.remove(brick)
-                            config.CURRENT_COUNT -= 1
+                        Powerup.spawn_powerup(game.spawned_powerups, brick.get_pos)
+                        row.remove(brick)
+                        config.CURRENT_COUNT -= 1
                         break
 
      #Next Level Function
