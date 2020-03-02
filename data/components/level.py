@@ -31,7 +31,7 @@ class Level:
             #Loop through each brick in the line
             for brick in line:
                 #if the brick is equal to 0, simply move the x value over 54 pixels and continue onto the next brick
-                if brick == '0':
+                if brick == '00':
                     x += 54
                     continue
                 #Append each brick object to the new_row list and then move the x variable over 54 pixels
