@@ -10,7 +10,7 @@ class Level:
         Level.__load_level(50, Rows, level)
 
     #Function Select Level returns a string containing the name of the txt file containing the level to be opened
-    def __select_level(level):
+    def select_level(level):
         return 'level' + str(level) + '.txt'
 
     #Function Load Level loads the level from the text file containing it
@@ -18,7 +18,7 @@ class Level:
         #Set Current Count of bricks to 0 for the current level
         config.CURRENT_COUNT = 0       
         #Open the text file containing the requested level
-        with open(os.path.join('resources/levels', Level.__select_level(level))) as level:
+        with open(os.path.join('resources/levels', Level.select_level(level))) as level:
             lines = level.readlines()
         #Loop through the level line by line
         for line in lines:

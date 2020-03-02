@@ -1,4 +1,5 @@
 import pygame
+import os
 
 from . import config
 from .components.powerup import Powerup
@@ -9,7 +10,6 @@ class GameFunctions:
     #New Game Function resets everything and starts a new game
     def new_game(game):
         config.CURRENT_COUNT = 0
-        game.new = False
         game.bricks.clear()
         game.current_level = 0
         game.scorecard.lives_left = 3
@@ -87,24 +87,26 @@ class GameFunctions:
                         Powerup.spawn_powerup(game.spawned_powerups, brick.get_pos)
                         row.remove(brick)
                         config.CURRENT_COUNT -= 1
-                        break
 
-     #Next Level Function
     #Next Level Function loads the next level
     def next_level(game):
-        Level.new_level(game.current_level, game.bricks)
-        game.paddle.reset_paddle_size()
-        GameFunctions.clear_powerups(game)
-        for ball in game.ball_list:
-            ball.reset_ball()
-            ball.increase_speed()
+        if os.path.exists(os.path.join('resources/levels', Level.select_level(game.current_level))) == False:
+            game.current_level = 0
+            config.NEW_GAME = True
+            game.done = True
+        else:
+            Level.new_level(game.current_level, game.bricks)
+            game.paddle.reset_paddle_size()
+            GameFunctions.clear_powerups(game)
+            for ball in game.ball_list:
+                ball.reset_ball()
+                ball.increase_speed()
         
-
     #Update Powerups Function
     #Update Powerups Function will update both spawned an activated powerups
     def update_powerups(game):
         for powerup in game.spawned_powerups:
-            powerup.update_spawned_powerups(game.delta, game.spawned_powerups, game.activated_powerups, game.paddle)  
+            powerup.update_spawned_powerups(game.delta, game.spawned_powerups, game.activated_powerups, game.paddle)
         for powerup in game.activated_powerups:
             if powerup.activated == False:
                 powerup.activate(game.paddle, game.ball_list, game.scorecard)
