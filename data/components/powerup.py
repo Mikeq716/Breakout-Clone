@@ -13,18 +13,19 @@ class Powerup:
         self.timer = 0
         self.activated = False
 
-    #Function Spawn Powerup
     #Function Spawn Powerup decides whether to spawn a powerup and if one is to be spawned, it is added to the spawned powerups list
     def spawn_powerup(spawned_list, pos):
+        #Each brick has a 1 in 10 chance of spawning a powerup
         if random.randint(1, 7) == 1:
+            #Select a powerup to spawn
             pu_pick = random.randint(1, 135)
             for key, value in POWERUP_CHANCE.items():
                 if value[0] <= pu_pick <= value[1]:
                     pu = key
                     break
+            #Append the selected powerup to the spawned_list
             spawned_list.append(POWERUPS[pu](pos, PU_IMG[pu]))
 
-    #Function Update
     #Function Update moves the spawned powerup, checks if it collided with the paddle, and deletes it if it drops below the paddle
     #Function Update also draws the powerup onto the screen
     def update_spawned_powerups(self, delta, spawned_list, activated_list, paddle):

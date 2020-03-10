@@ -57,9 +57,11 @@ class Ball:
 
     #Activate Ball Function sets the balls __ball_active variable to True
     def activate_ball(self):
-        self.ball_active = True
-        #Set the balls direction to straight up
-        self.direction = pygame.math.Vector2(0, -1).normalize()
+        #Check if ball is currently active
+        if self.ball_active == False:
+            self.ball_active = True
+            #Set the balls direction to straight up
+            self.direction = pygame.math.Vector2(0, -1).normalize()
 
     #Deactivate Ball Function sets the balls ball_active function to False and positions the ball at the center of the paddle
     def deactivate_ball(self, delta):
